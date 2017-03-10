@@ -1,0 +1,30 @@
+/*http://rap.taobao.org/mockjsdata/14205/*/
+/*http://139.224.27.154:8080/iqCloud*/
+{
+  "entry": "src/index.js",
+  "disableCSSModules": false,
+  "less": true,
+  "publicPath": "/",
+  "autoprefixer": null,
+  "proxy": {
+      "/api":{
+          "target":"http://139.224.27.154:8080/iqCloud",
+          "changeOrigin":true
+      }
+  },
+ "theme": {
+        "@primary-color": "#CB2220"
+  },
+  "extraBabelPlugins": [
+    "transform-runtime",
+    ["import",{"libraryName":"antd","style":true}]
+  ],
+  "env": {
+    "development": {
+      "extraBabelPlugins": [
+        "dva-hmr",
+        ["import",{"libraryName":"antd","style":true}]
+      ]
+    }
+  }
+}
