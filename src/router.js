@@ -1,6 +1,5 @@
 import React from 'react';
-import {getSession} from './utils/index'
-import { Router, Route,hashHistory,IndexRoute } from 'dva/router';
+import { Router, Route,IndexRoute } from 'dva/router';
 import IndexPage from './routes/IndexPage';
 import Users from "./routes/Users.js";
 import App from "./routes/App.js";
@@ -23,6 +22,7 @@ import Room from "./routes/Room.js";
 import UsersAppend from "./routes/UsersAppend.js";
 import AccreditUsers from "./routes/AccreditUsers.js";
 import CommunityEdit from "./routes/CommunityEdit.js";
+import Register from "./routes/Register.js";
 function RouterConfig({ history}) {
   function requireAuth(props) {
   }
@@ -37,10 +37,11 @@ function RouterConfig({ history}) {
          </Route>
         <Route path="/company" component={Company} breadcrumbName="企业管理"/>
         <Route path="/community" component={Community} breadcrumbName="社区管理" />
-         <Route path="/community" breadcrumbName="社区管理">
+        <Route path="/community" breadcrumbName="社区管理">
              <Route path="/community/append" component={Community_Append} breadcrumbName="新增社区"/>
              <Route path="/community/edit" component={CommunityEdit} breadcrumbName="编辑社区"/>
-         </Route>
+             <Route path="/accredit/community" component={AccreditCommunity} breadcrumbName="社区授权"/>
+        </Route>
         <Route path="/application" component={Application} breadcrumbName="应用管理"/>
         <Route path="/application/append" component={ApplicationAppend} breadcrumbName="应用接入"/>
         <Route path="/application/conf" component={ApplicationEdit} breadcrumbName="应用配置"/>
@@ -51,16 +52,14 @@ function RouterConfig({ history}) {
         <Route path="/role" component={Role} breadcrumbName="角色管理"/>
         <Route path="/accredit" component={Accredit} breadcrumbName="绑定权限"/>
         <Route path="/accredit/company" component={AccreditCompany} breadcrumbName="企业授权"/>
-        <Route path="/accredit/community" component={AccreditCommunity} breadcrumbName="社区授权"/>
         <Route path="/room" component={Room} breadcrumbName="房间管理"/>
       </Route>
       <Route path="/" >
-        <IndexRoute component={Login}/>
+        <IndexRoute component={Register}/>
       </Route>
       <Route path="/login" component={Login}/>
-
+      <Route path="/register" component={Register} />
     </Router>
   );
 }
-
 export default RouterConfig;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Table,Popconfirm,Row,Col} from 'antd';
-import TreeComponent from '../components/Users/Tree';
+import TreeComponent from '../components/Tree/Tree';
     import UsersComponent from '../components/Users/Users'
 import styles from './Company.less'
 function Users({dispatch,loading,company,nodes,record}) {
@@ -52,7 +52,7 @@ function Users({dispatch,loading,company,nodes,record}) {
         <div>
             <Row>
                 <Col span="6">
-                    <TreeComponent rootData={company} nodesData={nodes} loadData={loadData} selectHandler={selectHandler}  onPageChange={onPageChange}/>
+                    <TreeComponent rootData={company.data} nodesData={nodes} loadData={loadData} selectHandler={selectHandler}  onPageChange={onPageChange}/>
                 </Col>
                 <Col span="18">
                     <UsersComponent record={record} onOk={createHandler} loading={loading}/>

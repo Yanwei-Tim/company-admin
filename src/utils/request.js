@@ -45,6 +45,5 @@ export default async function request(url, options) {
         message.warning(data.message);
     }
   }
-
   return data;
 }

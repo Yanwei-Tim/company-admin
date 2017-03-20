@@ -1,3 +1,7 @@
+require('es6-promise').polyfill();
+require('es5-shim');
+require('es5-shim/es5-sham');
+//require('console-polyfill');
 import dva from 'dva';
 import {message} from 'antd'
 import './index.html';
@@ -13,7 +17,18 @@ const app = dva({
           message.info(err.message)
     }
 });
+
+
+// 2. Plugins
+app.use(createLoading());
+app.use(createLogger());
+
+// 3. Model
 app.model(require("./models/users"));
+
+app.model(require("./models/utils"));
+
+app.model(require("./models/register"));
 
 app.model(require("./models/room"));
 
@@ -36,17 +51,6 @@ app.model(require("./models/company"));
 app.model(require("./models/login"));
 
 app.model(require("./models/app"));
-
-// 2. Plugins
-app.use(createLoading({
-  effects:{
-    company:false
-  }
-}));
-//app.use(createLogger());
-
-// 3. Model
-// app.model(require('./models/example'));
 
 // 4. Router
 app.router(require('./router'));

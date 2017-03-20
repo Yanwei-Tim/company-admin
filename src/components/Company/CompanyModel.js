@@ -54,7 +54,7 @@ class CompanyModel extends Component {
           maskClosable={false}
           width="600px"
         >
-          <Form horizontal onSubmit={this.okHandler}>
+          <Form  onSubmit={this.okHandler}>
             <FormItem
               {...formItemLayout}
               label="企业名称"

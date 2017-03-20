@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import BingdingComponent from '../components/Accredit/Bingding'
-function AccreditCommunity({dispatch,roles,loading,communityId,accredit,location}) {
+function AccreditCommunity({dispatch,roles,loading,communityId,accredit,location,params}) {
   function submitHandler(values=[]) {
     let roleList=[];
     values.map((key)=>{

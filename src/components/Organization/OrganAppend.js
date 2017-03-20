@@ -59,7 +59,7 @@ class OrganModel extends Component {
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
         >
-             <Form horizontal onSubmit={this.okHandler.bind(this)}>
+             <Form  onSubmit={this.okHandler.bind(this)}>
                <FormItem {...formItemLayout} label='所属企业' style={{'display':'none'}}>
                 {getFieldDecorator('eid',{
                   initialValue:eid,
@@ -101,7 +101,7 @@ class OrganModel extends Component {
               </FormItem>
               <FormItem {...formItemLayout} label='机构标志'>
                 {getFieldDecorator('nodeFlag',{
-                  initialValue:(nodeFlag+1).toString(),
+                  initialValue:nodeFlag<5?(nodeFlag+1).toString():"10",
                   rules:[
                     {
                       required: true,

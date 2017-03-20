@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Table,Popconfirm,message,Button,Row,Col} from 'antd';
-import TreeComponent from '../components/Community/Tree'
+import TreeComponent from '../components/Tree/Tree'
 import { routerRedux,Link } from 'dva/router';
 import styles from './Company.less'
 function Community({dispatch,list,loading,size,company,nodes,orgId,title}) {
@@ -65,7 +65,7 @@ function Community({dispatch,list,loading,size,company,nodes,orgId,title}) {
     {
       title: '操作',
       key: 'operation',
-      width:'20%',
+      width:'25%',
       render:(record)=>{
         const link={
           pathname:'/building',
@@ -109,7 +109,7 @@ function Community({dispatch,list,loading,size,company,nodes,orgId,title}) {
     <div>
       <Row>
         <Col span="6">
-           <TreeComponent rootData={company} nodesData={nodes} loadData={loadData} selectHandler={selectHandler} orgId={orgId}/>
+           <TreeComponent rootData={company.data} nodesData={nodes} loadData={loadData} selectHandler={selectHandler} orgId={orgId}/>
         </Col>
         <Col span="18">
           <Table

@@ -23,10 +23,25 @@ export default {
   },
   effects: {
     *fetch({payload:{page=1,size=20,name}},{call,put}){
-      yield put({ type: 'showLoading' });
-      var data= yield call(Service.fetch,{page,size,name});
+      var data= {
+          data:{
+              "address":"无",
+              "boss":"吴山",
+              "cityId":0,
+              "code":"EP170309LMFP",
+              "company":"测试用号勿删",
+              "contract":"吴山",
+              "contractPhone":"18065883826",
+              "disable":false,
+              "email":"",
+              "fax":"",
+              "id":"e132f71b5f5444f18c1bb3532dc322a9",
+              "phone":"",
+              "readme":""
+          }
+      }
+     // yield call(Service.fetch,{page,size,name});
       yield put({ type: 'save', payload: {data,page:parseInt(page),size:parseInt(size)}});
-      yield put({ type: 'hiddenLoading' });
     },
     *remove({payload:id},{call,put}){
        var data= yield call(Service.remove,id);

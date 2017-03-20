@@ -22,6 +22,7 @@ function Sider({location,darkTheme,changeTheme}) {
         <Menu.Item key="sub4"><Link to="application"><Icon type="appstore-o"/>应用管理</Link></Menu.Item>*/}
 
         <Menu.Item key="1"><Link to="home"><Icon type="home"/>我的首页</Link></Menu.Item>
+        <Menu.Item key="sub1"><Link to="company"><Icon type="laptop"/>企业信息</Link></Menu.Item>
         <Menu.Item key="sub2"><Link to="organization"><Icon type="windows-o"/>组织机构</Link></Menu.Item>
         <SubMenu key="sub3" title={<span><Icon type="pie-chart" /><span>社区</span></span>}>
           <Menu.Item key="sub3-0"><Link to="community">社区管理</Link></Menu.Item>
@@ -29,7 +30,7 @@ function Sider({location,darkTheme,changeTheme}) {
         </SubMenu>
         <SubMenu key="sub4" title={<span><Icon type="cloud-o" /><span>楼宇</span></span>}>
           <Menu.Item key="sub4-0"><Link to="building">楼宇管理</Link></Menu.Item>
-          <Menu.Item key="sub4-1"><Link to="building/append">新增楼宇</Link></Menu.Item>
+          {/*<Menu.Item key="sub4-1"><Link to="building/append">新增楼宇</Link></Menu.Item>*/}
         </SubMenu>
         <SubMenu key="sub8" title={<span><Icon type="share-alt" /><span>权限角色</span></span>}>
           <Menu.Item key="sub8-0"><Link to="authorize">权限管理</Link></Menu.Item>

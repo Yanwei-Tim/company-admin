@@ -2,6 +2,7 @@ export default {
   //登录模块
   LOGIN_ACCOUNT:"/api/account/loginByAccountForWeb",//用户登录
   COMPANY_LIST:"/api/enterprise/getEnterprisesByPage",//企业列表
+  COMPANY_INFO:"/api/enterprise/getInfo",//企业信息
   COMPANY_DELETE:"/api/enterprise/deleteEnterprise",//删除企业
   COMPANY_EDIT:"/api/enterprise/updateEnterprise",//企业编辑
   COMPANY_CREATE:"/api/enterprise/insertEnterprise",//新增企业
@@ -57,6 +58,9 @@ export default {
   USERS_EDIT:"/api/enterprise/updateMember",//用户编辑
   USERS_LIST_COMPANY:"/api/enterprise/getMemberByEnterprise",//获取企业所有员工
   USERS_LIST_ORGAN:"/api/enterprise/getMemberByOrganizationAll",//获取组织所有员工
-
+  //验证码
+  VALID_CODE:"/api/enterprise/admin/getValidCode",//验证码
+  //注册
+  REGISTER_POST:"/api/enterprise/admin/register",//注册
 
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Table,Popconfirm,Row,Col} from 'antd';
 import {Link} from 'dva/router'
-import TreeComponent from '../components/Users/Tree';
+import TreeComponent from '../components/Tree/Tree';
 import UserModel from '../components/Users/UserModel'
 import styles from './Company.less'
 function Users({dispatch,list,size,loading,id,company,nodes,orgId}) {
@@ -118,7 +118,7 @@ function Users({dispatch,list,size,loading,id,company,nodes,orgId}) {
       <div>
           <Row>
               <Col span="6">
-                  <TreeComponent rootData={company} nodesData={nodes} loadData={loadData} selectHandler={selectHandler} orgId={orgId} onPageChange={onPageChange}/>
+                  <TreeComponent rootData={company.data} nodesData={nodes} loadData={loadData} selectHandler={selectHandler} orgId={orgId} onPageChange={onPageChange}/>
               </Col>
               <Col span="18">
                   <Table

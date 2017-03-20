@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import {Link} from 'dva/router'
 import { Table,Popconfirm,message,Button,Tag,Tree,Row,Col} from 'antd';
 import { routerRedux } from 'dva/router';
-import TreeComponent from '../components/Organization/Tree';
+import TreeComponent from '../components/Tree/Tree';
 import OrganModel from '../components/Organization/OrganModel';
 import OrganAppend from '../components/Organization/OrganAppend';
 import {organFlag} from '../utils/index'
@@ -18,13 +18,13 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
   function deleteHandler(record) {
     dispatch({
       type: 'organization/remove',
-      payload: {id:record.id,eid:record.eid} ,
+      payload: {id:record.id,parentId:record.parentId,eid:record.eid}
     });
   }
-  function editHandler(id,parentId,values) {
+  function editHandler(values) {
     dispatch({
       type: 'organization/patch',
-      payload: {...values,id,parentId,eid},
+      payload: values,
     });
   }
   function createHandler(values) {
@@ -41,7 +41,7 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
   }
   function onSearch(name) {
     dispatch({
-      type:'organization/fetchCompany',
+      type:'organization/fetch',
       payload:{name,page,eid}
     })
   }
@@ -86,7 +86,7 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
       dataIndex: 'level',
       key: 'level',
     },
-    /*{
+    {
       title: '操作',
       dataIndex: 'operation',
       key: 'operation',
@@ -96,7 +96,7 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
           <OrganAppend record={record} onOk={createHandler} title="新增机构" company={title}>
             <a href="javascript:void(0)" style={{color:'#7265e6'}}>新增</a>
           </OrganAppend>
-          <OrganModel record={record} onOk={editHandler.bind(null,record.id,record.parentId)} title="编辑机构" >
+          <OrganModel record={record} onOk={editHandler} title="编辑机构" >
             <a href="javascript:void(0)" className={styles['edit-text']}>编辑</a>
           </OrganModel>
           <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record)}>
@@ -104,7 +104,7 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
           </Popconfirm>
         </div>)
       }
-     }*/
+     }
   ];
   const pagination={
     total:list&&list.length,
@@ -116,22 +116,21 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
         pathname: '/organization',
         query: {eid,size} ,
       })
-    },
-    //onChange:pageChangeHandler
+    }
   };
   return (
     <div>
       <Row>
         <Col span="6">
-         <TreeComponent rootData={company} nodesData={nodes} onPageChange={onPageChange} onSearch={onSearch} eid={eid} loadData={loadData} selectHandler={selectHandler}/>
+         <TreeComponent rootData={company.data} nodesData={nodes}  onSearch={onSearch}  loadData={loadData} selectHandler={selectHandler} draggable={true} onDrop={editHandler}/>
         </Col>
         <Col span="18">
          <Table
             columns={columns}
             dataSource={list}
-            rowKey={record => record.id}
             pagination={pagination}
             loading={loading}
+            rowKey={record => record.id}
           />
         </Col>
       </Row>
@@ -139,7 +138,8 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
   );
 }
 function mapStateToProps(state) {
-  const { data,page,company,eid,nodes,list,size,title} = state.organization;
+  const { data,page,eid,nodes,list,size,title} = state.organization;
+  const company = state.company.data;
   return {
     loading: state.loading.models.organization,
     data,

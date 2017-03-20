@@ -1,7 +1,7 @@
 import request from '../utils/request';
 import constant from '../utils/constant'
-export function fetch({page=1,size=20,name=''}) {
-  return request(constant.COMPANY_LIST+`?pageNo=${page}&pageNum=${size}&name=${name}`)
+export function fetch() {
+  return request(constant.COMPANY_INFO)
 }
 export function remove(id) {
   return request(constant.COMPANY_DELETE+`?id=${id}`)

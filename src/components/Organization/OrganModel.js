@@ -24,9 +24,10 @@ class OrganModel extends Component {
   };
   okHandler = () => {
     const { onOk } = this.props;
+      const {id,eid,parentId}=this.props.record;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        let result=Object.assign({},values,{nodeName:values.node_Name});
+        let result=Object.assign({},values,{nodeName:values.node_Name,id,eid,parentId});
         delete result.node_Name;
         onOk(result);
         this.hideModelHandler();
@@ -59,7 +60,7 @@ class OrganModel extends Component {
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
         >
-             <Form horizontal onSubmit={this.okHandler.bind(this,id,parentId)}>
+             <Form  onSubmit={this.okHandler.bind(this,id,parentId)}>
               <FormItem {...formItemLayout} label='编号'>
                 <span className="ant-form-text">{code}</span>
               </FormItem>

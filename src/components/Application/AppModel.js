@@ -54,7 +54,7 @@ class AppModel extends Component {
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
         >
-          <Form horizontal onSubmit={this.okHandler}>
+          <Form layout="horizontal" onSubmit={this.okHandler}>
             <FormItem
               {...formItemLayout}
               label="应用名称"

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import {message,Row,Col} from 'antd'
 import CommunityComponent from '../components/Community/Community'
-import TreeComponent from '../components/Community/Tree'
+import TreeComponent from '../components/Tree/Tree'
 function Community({dispatch,location,company,nodes,orgId,organ,loading}) {
   function createHandler(values) {
     dispatch({
@@ -42,7 +42,7 @@ function Community({dispatch,location,company,nodes,orgId,organ,loading}) {
   return (
       <Row>
         <Col span={6}>
-          <TreeComponent rootData={company} nodesData={nodes} loadData={loadData} selectHandler={selectHandler} orgId={orgId}/>
+          <TreeComponent rootData={company.data} nodesData={nodes} loadData={loadData} selectHandler={selectHandler} orgId={orgId}/>
         </Col>
         <Col span={18}>
           <CommunityComponent onOk={createHandler} record={{}} organ={organ} loading={false}/>
