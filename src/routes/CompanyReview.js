@@ -6,7 +6,7 @@ import styles from './RegisterCompanyPost.css';
 import StepsComponent from '../components/Register/Steps';
 import HeaderComponent from '../components/Layout/Header';
 function RegisterCompanyPost({dispatch,location}) {
-  const registerStatus=Object.assign({},location.state,{status:1,checkReply:''});
+  const registerStatus=Object.assign({},{status:1,checkReply:''},location.state&&location.state.registerStatus);
   const {status,checkReply} =registerStatus;
   function submitHandler(values){
     dispatch({
@@ -37,8 +37,8 @@ function RegisterCompanyPost({dispatch,location}) {
               {
                 status===-1?(
                   <div className={styles.refuse}>
-                    <h3>您的资料您的资料未通过审核，请查看原因并重新提交资料</h3>
-                    <p>{checkReply}</p>
+                    <h4>您的资料您的资料未通过审核，请查看原因并重新提交资料</h4>
+                    <p>不通过原因：{checkReply}</p>
                     <p style={{"color":"#222"}}>返回并重新提交资料 <Link to="company/info">提交资料</Link></p>
                   </div>
 

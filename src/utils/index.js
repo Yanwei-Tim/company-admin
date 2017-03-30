@@ -92,12 +92,10 @@ export function organFlag(flag) {
     case 10:
       return "岗位";
       break;
-
   }
 }
 export function prompt(url,data={}) {
   const notification_strainer=[api.REGISTER_POST,api.LOGIN_ACCOUNT,api.VALID_CODE,api.VALIDATE_ACCOUNT,api.VALID_TOKEN,api.FIND_PWD];
-  //const exclude=[api.VALIDATE_ACCOUNT];
   let pathname=url;
   if(url.indexOf("?")!==-1){
     pathname=url.substr(0,url.indexOf("?"));

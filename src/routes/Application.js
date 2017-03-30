@@ -53,7 +53,6 @@ function App({dispatch,location,data={},loading,data_key_1={}}) {
                               <p className={styles.statusText}>{appStatus(record.status)}</p>
                             </Col>
                           </Row>
-
                         </Link>
                       </div>
                     </Col>)

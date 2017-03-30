@@ -1,4 +1,3 @@
-/*http://rap.taobao.org/mockjsdata/14205/*/
 /*http://139.224.27.154:8080/iqCloud*/
 {
   "entry": "src/index.js",
@@ -8,12 +7,17 @@
   "autoprefixer": null,
   "proxy": {
       "/api":{
-          "target":"http://139.224.27.154:8080/iqCloud",
+          "target":"http://139.224.27.154:8081/enterprise",
           "changeOrigin":true
       }
   },
  "theme": {
-        "@primary-color": "#CB2220"
+        "@primary-color": "#00a5e0",
+        "@border-radius-base":"4px",
+         "@input-border-color":"#d8d8d8",
+         "@font-size-base":"14px",
+         "@background-color-base":"#d8d8d8"
+
   },
   "extraBabelPlugins": [
     "transform-runtime",

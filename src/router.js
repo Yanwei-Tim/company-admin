@@ -31,9 +31,13 @@ import UsersEdit from "./routes/UsersEdit.js";
 import OrganizationEdit from "./routes/OrganizationEdit.js";
 import ApplicationCommunity from "./routes/ApplicationCommunity.js";
 import FindPwd from "./routes/FindPwd.js";
+import NotFund from "./routes/NotFound.js";
 function RouterConfig({ history}) {
+  function updateRoute() {
+
+  }
   return (
-    <Router history={history} >
+    <Router history={history} onUpdate={updateRoute}>
       <Route  component={App} >
         <Route path="/home" component={IndexPage}  />
         <Route path="/users" component={Users} breadcrumbName="员工管理" />
@@ -61,9 +65,7 @@ function RouterConfig({ history}) {
           <Route path="/community/building/append" component={BuildingAppend} breadcrumbName="新增楼宇" />
         </Route>
         <Route path="/community" breadcrumbName="社区管理" >
-          <Route  breadcrumbName="楼宇管理" >
-            <Route path="/room" component={Room} breadcrumbName="房间管理"/>
-          </Route>
+          <Route path="/room" component={Room} breadcrumbName="房间管理"/>
          </Route>
         <Route path="/organization" component={Organization} breadcrumbName="组织机构" />
         <Route path="/organization" breadcrumbName="组织机构" >
@@ -81,12 +83,16 @@ function RouterConfig({ history}) {
       <Route path="/" >
         <IndexRoute component={Login}/>
       </Route>
+
       <Route path="/login" component={Login}/>
       <Route path="/register" component={Register} />
       <Route path="/company/info" component={RegisterCompanyInfo} />
       <Route path="/company/post" component={RegisterCompanyPost} />
       <Route path="/company/review" component={CompanyReview} />
       <Route path="/find/password" component={FindPwd} />
+      <Route path="*" >
+        <IndexRoute component={NotFund}/>
+      </Route>
     </Router>
   );
 }

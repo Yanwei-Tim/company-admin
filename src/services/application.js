@@ -15,3 +15,6 @@ export function fetch_by_eid({id,eid,page=1,size=3}) {
 export function fetch_by_organ({id,organizationId,page,size}) {
   return request(constant.APP_BY_ORGANIZATION+`?thirdId=${id}&organizationId=${organizationId}&pageNo=${page}&pageNum=${size}`);
 }
+export function fetch_enabled() {
+  return request(constant.APP_LIST_ENABLED)
+}

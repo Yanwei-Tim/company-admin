@@ -5,7 +5,7 @@ import SearchComponent from '../components/Search/Search';
 import FilterComponent from '../components/Filter/Filter';
 import { routerRedux,Link } from 'dva/router';
 import styles from './Company.less'
-function Community({dispatch,list,loading,size,page,name,nodes,orgId,title}) {
+function Community({dispatch,list,loading,size,page,name,nodes,orgId}) {
   function onSearch(value) {
     if(orgId){
       dispatch({
@@ -119,7 +119,7 @@ function Community({dispatch,list,loading,size,page,name,nodes,orgId,title}) {
         });
       }else {
         dispatch({
-          type: 'community/fetch',
+          type: 'community/fetchByCompany',
           payload: {page,size,name}
         });
       }

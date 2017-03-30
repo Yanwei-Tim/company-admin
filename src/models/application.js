@@ -9,8 +9,8 @@ export default {
     size:10000
   },
   reducers: {
-    save(state,{payload:{data,page,size,organizationId,list,data_key_1,community_list}}){
-      return {...state,page,data,size,organizationId,list,data_key_1,community_list};
+    save(state,{payload:{data,page,size,organizationId,list,data_key_1,community_list,nav_list}}){
+      return {...state,page,data,size,organizationId,list,data_key_1,community_list,nav_list};
     },
   },
   effects: {
@@ -33,6 +33,7 @@ export default {
       var list= yield call(Service.fetch_by_eid,{id,eid:getEidToken()});
       yield put({ type: 'save', payload: {community_list,organizationId,list} });
     },
+
     *create_by_company({payload:id},{call,put}){
       var data=yield call(Service.companyCreate,id);
     },

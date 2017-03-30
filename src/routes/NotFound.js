@@ -1,9 +1,14 @@
 import React from 'react';
 import { connect } from 'dva';
+import HeaderComponent from '../components/OutSide/Header';
+import FooterComponent from '../components/OutSide/Footer';
+import NotFoundComponent from '../components/NotFound/404';
 function NotFound({ location }) {
     return (
         <div>
-            <h1>404 NotFound</h1>
+          <HeaderComponent/>
+          <NotFoundComponent/>
+          <FooterComponent/>
         </div>
     );
 }

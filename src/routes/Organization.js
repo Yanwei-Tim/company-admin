@@ -88,7 +88,7 @@ function Organ({dispatch,loading,page,orgId,nodes,list,size,title}) {
       <FilterComponent nodes={nodes} onChange={optionChange} defaultValue={orgId}  placeholder="组织机构" style={{width:250}}/>
       <Row className={styles.operation}>
         <Col span={12}>
-          <h4>社区管理</h4>
+   
         </Col>
         <Col span={12}>
           <div className={styles.btnGroup}>

@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './main.less';
 import {Breadcrumb} from 'antd'
-function Bread({routes,location}) {
+function Bread({routes}) {
   return (
-        <Breadcrumb className={styles.bread} routes={routes}/>
+        <Breadcrumb className={styles.bread} routes={routes} />
   );
 }
 

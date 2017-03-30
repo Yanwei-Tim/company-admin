@@ -5,7 +5,6 @@ import CompanyModel from '../components/Company/CompanyModel';
 import UploadModel from '../components/Company/UploadModel';
 import styles from './Company.less'
 function Company({dispatch,data,loading,OSS}) {
-  console.log(OSS)
   const {company,logoUrl="http://img.iqcloud.cc/headImg/ic_default_head.png",boss,phone,address,fax,email,contract,contractPhone,readme}=data;
   function editHandler(values) {
     dispatch({

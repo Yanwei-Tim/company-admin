@@ -123,7 +123,7 @@ class User extends Component {
               }
             </FormItem>
                   <FormItem {...tailFormItemLayout} >
-                    <Button type="primary" onClick={this.okHandler.bind(this)} size="large">提交</Button>
+                    <Button type="primary"  size="large" htmlType="submit">提交</Button>
                   </FormItem>
                  </Form>
                </div>

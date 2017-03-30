@@ -6,9 +6,15 @@ import Header from '../components/Layout/Header';
 import Sider from '../components/Layout/Sider'
 import Bread from '../components/Layout/Bread'
 import Footer from '../components/OutSide/Footer'
-function App({ children,location,routes,dispatch,token}) {
+function App({ children,location,routes,dispatch,token,list={}}) {
+
+  function setHeight(height) {
+     document.getElementById("layout").style.height=height+50+"px"
+  }
   const siderProps={
     location,
+    list:list.data,
+    setHeight
   };
   if(token&&token.status===0){
     dispatch(routerRedux.push({
@@ -22,7 +28,7 @@ function App({ children,location,routes,dispatch,token}) {
         <aside className={styles.sider}>
           <Sider {...siderProps}/>
         </aside>
-        <div className={styles.main}>
+        <div className={styles.main} id="layout">
           <Bread routes={routes} location={location}/>
           <div className={styles.container}>
             <div className={styles.content}>
@@ -39,10 +45,12 @@ function mapStateToProps(state) {
   let {app}=state;
   const {token}=state.utils;
   const {status}=state.login;
+  const {list}=state.nav;
   return {
     app,
     status,
-    token
+    token,
+    list
   };
 }
 export default connect(mapStateToProps)(App);

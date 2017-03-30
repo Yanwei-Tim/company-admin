@@ -133,7 +133,7 @@ function App({dispatch,loading,location,community_list={},nodes,organizationId,l
             <br/>
             <Row gutter={48}>
               {
-                list.data&&list.data.map((item)=>{
+                list.data&&list.data.slice(0,3).map((item)=>{
                   return (
                     <Col span={6} key={item.id} >
                       <div className={classnames({
@@ -148,12 +148,11 @@ function App({dispatch,loading,location,community_list={},nodes,organizationId,l
                 })
               }
               {
-                list.count>3?( <Col span={6} key={item.id}>
+                list.count>3?( <Col span={6}>
                   <div className={styles.status_more}>
                     <Link>
                       <Icon type="plus" /> 更多
                     </Link>
-
                   </div>
                 </Col>):""
               }

@@ -81,8 +81,8 @@ class Register extends Component{
               <div className={styles.content}>
                 <Row>
                   <Col span={12}>
-                    <Form onSubmit={this.handleOk.bind(this)} autoComplete="off" hideRequiredMark  >
-                        <FormItem {...formItemLayout} label="用户名" colon={false} hasFeedback  validateStatus={this.state.valid} className={styles["cloud-form-item"]}>
+                    <Form onSubmit={this.handleOk.bind(this)} autoComplete="off" hideRequiredMark >
+                        <FormItem {...formItemLayout} label="用户名" colon={false}  hasFeedback  validateStatus={this.state.valid} className={styles["cloud-form-item"]}>
                           {getFieldDecorator('account', {
                             rules: [
                               {

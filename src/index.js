@@ -51,6 +51,7 @@ app.model(require("./models/company"));
 app.model(require("./models/login"));
 
 app.model(require("./models/app"));
+app.model(require("./models/nav"));
 
 // 4. Router
 app.router(require('./router'));

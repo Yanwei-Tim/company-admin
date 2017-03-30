@@ -27,6 +27,7 @@ export default {
   APP_EDIT:"/api/third/updateThird",//编辑应用
   APP_BY_EID:"/api/enterprise/admin/getCommunityByEnterpriseIDAndThirdID",//根据eid获取社区应用
   APP_BY_ORGANIZATION:"/api/enterprise/admin/getCommunityByOrganizationIDAndThirdID",//根据组织机构获取社区
+  APP_LIST_ENABLED:"/api/enterprise/admin/getEnterpriseEnableThirds",//全部已开通应用
   //楼宇
   BUILDING_LIST:"/api/community/getBuildingByCommunity",//楼宇列表
   BUILDING_DELETE:"/api/community/deleteBuilding",//删除楼宇
