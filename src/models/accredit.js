@@ -67,8 +67,9 @@ export default {
           dispatch({type:'role/fetch',payload:query});
         }
           if(pathname==='/accredit/users'){
-              dispatch({type:'fetch_role_by_memberId',payload:query});
               dispatch({type:'role/fetch',payload:query});
+              dispatch({type:'fetch_role_by_memberId',payload:query});
+
           }
       })
     }

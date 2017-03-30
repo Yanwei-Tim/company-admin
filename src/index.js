@@ -5,7 +5,7 @@ require('es5-shim/es5-sham');
 import dva from 'dva';
 import {message} from 'antd'
 import './index.html';
-import './index.css';
+import './index.less';
 import { createHashHistory } from 'history';
 import { useRouterHistory } from 'dva/router';
 import  createLoading from 'dva-loading'
@@ -21,7 +21,7 @@ const app = dva({
 
 // 2. Plugins
 app.use(createLoading());
-app.use(createLogger());
+//app.use(createLogger());
 
 // 3. Model
 app.model(require("./models/users"));

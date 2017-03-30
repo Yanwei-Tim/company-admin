@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Modal, Form, Input,Switch } from 'antd';
+import { Modal, Form, Input,Radio} from 'antd';
 
 const FormItem = Form.Item;
-
+const RadioGroup = Radio.Group;
 class RoomModel extends Component {
 
   constructor(props) {
@@ -18,7 +18,6 @@ class RoomModel extends Component {
       visible: true,
     });
   };
-
   hideModelHandler = () => {
     this.setState({
       visible: false,
@@ -29,7 +28,8 @@ class RoomModel extends Component {
     const { onOk } = this.props;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        onOk(Object.assign({},values));
+        const { id } = this.props.record;
+        onOk(Object.assign({},values,{id}));
         this.hideModelHandler();
       }
     });
@@ -37,7 +37,7 @@ class RoomModel extends Component {
   render() {
     const { children } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { name, code,ownerName,ownerPhone } = this.props.record;
+    const { name, code,ownerName,ownerPhone,sex=1 } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -61,7 +61,7 @@ class RoomModel extends Component {
               {
                 getFieldDecorator('code', {
                   initialValue: code,
-                })(<span className="ant-form-text">{code}</span>)
+                })(<Input />)
               }
             </FormItem>
             <FormItem
@@ -86,6 +86,20 @@ class RoomModel extends Component {
             </FormItem>
             <FormItem
               {...formItemLayout}
+              label="性别"
+            >
+              {
+                getFieldDecorator('ownerSex', {
+                  initialValue: sex
+                })(
+                  <RadioGroup >
+                  <Radio value={1}>男</Radio>
+                  <Radio value={0}>女</Radio>
+                </RadioGroup>)
+              }
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
               label="业主手机"
             >
               {
@@ -100,5 +114,4 @@ class RoomModel extends Component {
     );
   }
 }
-
 export default Form.create()(RoomModel);

@@ -1,30 +1,48 @@
 import React, { Component } from 'react';
-import { Modal, Form, Input } from 'antd';
-
+import { Modal, Form, Input,Cascader } from 'antd';
 const FormItem = Form.Item;
-
 class UserEditModal extends Component {
-
   constructor(props) {
     super(props);
+    const { nodes } = this.props;
     this.state = {
       visible: false,
+      parents:[],
+      options:{
+        value: nodes.id,
+        label: nodes.nodeName,
+        children: [],
+      }
     };
   }
-
   showModelHandler = (e) => {
     if (e) e.stopPropagation();
+    const { nodes,getParents,parents } = this.props;
+    const {organizationId } = this.props.record;
+    getParents(organizationId);
+    const loop=(data=[],children)=>{
+      const options = this.state.options;
+      data.map((item)=>{
+        let obj={
+          label:item.nodeName,
+          value:item.id,
+          children:[]
+        };
+        children.push(obj);
+        loop(item.organizationList,obj["children"])
+      })
+    };
+    loop(nodes.organizationList,this.state.options.children);
     this.setState({
       visible: true,
+      parents:parents
     });
   };
-
   hideModelHandler = () => {
     this.setState({
       visible: false,
     });
   };
-
   okHandler = () => {
     const { onOk } = this.props;
     this.props.form.validateFields((err, values) => {
@@ -38,12 +56,11 @@ class UserEditModal extends Component {
   render() {
     const { children } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { code,name, phone } = this.props.record;
+    const { code,name, phone,id } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
     };
-
     return (
       <span>
         <span onClick={this.showModelHandler}>
@@ -54,8 +71,23 @@ class UserEditModal extends Component {
           visible={this.state.visible}
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
+          key={id}
         >
           <Form onSubmit={this.okHandler}>
+            <FormItem {...formItemLayout}
+                      label="部门">
+                    {
+                      getFieldDecorator('organizationId', {
+                        initialValue: this.state.parents,
+                        rules: [
+                          {
+                            required: true,
+                            message: '请选择部门'
+                          }
+                        ]
+                      })(<Cascader options={[this.state.options]}  changeOnSelect={true} placeholder=""/>)
+                    }
+                </FormItem>
             <FormItem
               {...formItemLayout}
               label="工号"
@@ -74,7 +106,7 @@ class UserEditModal extends Component {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="名称"
+              label="姓名"
             >
               {
                 getFieldDecorator('name', {
@@ -82,7 +114,7 @@ class UserEditModal extends Component {
                     rules:[
                         {
                             required:true,
-                            message:"输入名称"
+                            message:"输入姓名"
                         }
                     ]
                 })(<Input />)
@@ -110,5 +142,4 @@ class UserEditModal extends Component {
     );
   }
 }
-
 export default Form.create()(UserEditModal);

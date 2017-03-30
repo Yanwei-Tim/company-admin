@@ -8,13 +8,13 @@ export default {
     save(state,{payload:{data}}){
       return {...state,data};
     },
-    size(state,{payload:{size,page}}){
-      return {...state,size,page};
+    size(state,{payload:{page}}){
+      return {...state,page};
     }
   },
   effects: {
-    *fetch({payload:{name}},{call,put}){
-      let data= yield call(Service.fetch,{name});
+    *fetch({payload:{}},{call,put}){
+      let data= yield call(Service.fetch);
       yield put({ type: 'save', payload: {data} });
     },
     *remove({payload:id},{call,put}){
@@ -30,8 +30,7 @@ export default {
       yield put({type:'reload'});
     },
     *reload(action,{put,select}){
-      const name=yield select(state=>state.authorize.name)
-      yield put({type:'fetch',payload:{name}});
+      yield put({type:'fetch'});
     }
   },
   subscriptions: {

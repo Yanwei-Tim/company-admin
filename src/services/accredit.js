@@ -31,7 +31,6 @@ export function communityBinding(values) {
   })
 }
 export function userBinding(values) {
-    console.log(values)
     return request(constant.ROLE_USER_BINDING,{
         method:'POST',
         body:JSON.stringify(values)

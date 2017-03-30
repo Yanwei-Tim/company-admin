@@ -2,9 +2,16 @@ import * as Service from '../services/login';
 export default {
   namespace: 'login',
   state: {
-   data:{}
+   data:{},
+   status:0
   },
   reducers: {
+    save(state, {payload:{data}}){
+      return {
+        ...state,
+        ...data
+      }
+    },
     loginSuccess(state, {payload:{data}}){
       return {
         ...state,
@@ -26,6 +33,11 @@ export default {
     },
     *logout({payload},{call,put}){
       yield put({type:'logoutSuccess'})
+    },
+    *findPwd({payload:values},{call,put}){
+      const data=yield call(Service.findPwd,values);
+      yield put({type:'save',payload:{data}})
+
     }
   },
   subscriptions: {

@@ -1,46 +1,43 @@
-import * as Service from '../services/application'
+import * as Service from '../services/application';
+import {getEidToken} from '../utils/index'
 export default {
   namespace: 'application',
   state: {
     data:{
       data:[]
     },
-    conf:{},
-    size:20
+    size:10000
   },
   reducers: {
-    save(state,{payload:{data,page,size,conf}}){
-      conf=conf||{};
-      return {...state,page,data,size,conf};
+    save(state,{payload:{data,page,size,organizationId,list,data_key_1,community_list}}){
+      return {...state,page,data,size,organizationId,list,data_key_1,community_list};
     },
-    responseStatus(state,{payload:{data}}){
-      return {...state,data};
-    }
   },
   effects: {
-    *fetch({payload:{page=1,size=20,name='',status}},{call,put}){
-      var data= yield call(Service.fetch,{page,size,name})||{};
-      yield put({ type: 'save', payload: {data,page:parseInt(page),size:parseInt(size)} });
+    *fetch({payload:{page=1,size=10000,name='',key=0}},{call,put}){
+      var data= yield call(Service.fetch,{page,size,key:0})||{};
+      var data_key_1= yield call(Service.fetch,{page,size,key:1})||{};
+      yield put({ type: 'save', payload: {data,page:parseInt(page),size:parseInt(size),data_key_1} });
     },
-    *fetchConf({payload:{id}},{call,put}){
-      var conf= yield call(Service.fetchConf,id);
-      yield put({ type: 'save', payload: {conf}});
+    *fetch_by_eid({payload:{id}},{call,put}){
+      var list= yield call(Service.fetch_by_eid,{id,eid:getEidToken()});
+      yield put({ type: 'save', payload: {list} });
     },
-    *remove({payload:id},{call,put}){
-      var data= yield call(Service.remove,id);
-      yield put({type:'reload'});
+    *fetch_by_organ({payload:{organizationId,id,page=1,size=10}},{call,put,select}){
+      var community_list= yield call(Service.fetch_by_organ,{id,organizationId,page,size});
+      const list=yield select(state=>state.application.list);
+      yield put({ type: 'save', payload: {community_list,organizationId,list} });
     },
-    *patch({payload:values},{call,put}){
-      var data=yield call(Service.patch,values);
-      yield put({type:'reload'});
+    *fetchAll({payload:{organizationId,id,page=1,size=10}},{call,put,select}){
+      var community_list= yield call(Service.fetch_by_organ,{id,organizationId,page,size});
+      var list= yield call(Service.fetch_by_eid,{id,eid:getEidToken()});
+      yield put({ type: 'save', payload: {community_list,organizationId,list} });
     },
-    *patchConf({payload:values},{call,put}){
-      var data=yield call(Service.patchConf,values);
-      yield put({type:'responseStatus',payload:{data}});
+    *create_by_company({payload:id},{call,put}){
+      var data=yield call(Service.companyCreate,id);
     },
-    *create({payload:values},{call,put}){
-      var data=yield call(Service.create,values);
-      yield put({type:'reload'})
+    *create_by_community({payload:values},{call,put}){
+      var data=yield call(Service.communityCreate,values);
     },
     *reload(action,{put,select}){
       const page=yield select(state=>state.application.page);
@@ -52,12 +49,13 @@ export default {
     setup({dispatch,history,params}){
       return history.listen(({pathname,query})=>{
         if(pathname==='/application'){
-          dispatch({type:'fetch',payload:query});
+          dispatch({type:'fetch',payload:{key:0,...query}});
         }
-        if(pathname==='/application/conf'){
-          dispatch({type:'fetchConf',payload:query});
+        if(pathname==='/application/community'){
+          dispatch({type:'organization/fetchOnly',payload:query});
+          dispatch({type:'fetch_by_eid',payload:query});
         }
       });
     }
-  },
+  }
 }

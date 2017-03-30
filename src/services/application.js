@@ -1,42 +1,17 @@
 import request from '../utils/request';
 import constant from '../utils/constant'
-export function fetch({page=1,size=20,name,status}) {
-  let url=`?pageNo=${page}&pageNum=${size}`;
-  if(name!==''&&name!=undefined){
-      url+=`&name=${name}`
-  }
-  if(status!=''&&status!=undefined){
-     url+=`&status=${status}`
-  }
-  return request(constant.APP_LIST+url);
+export function fetch({page=1,size=10000,key}) {
+  return request(constant.APP_LIST+`?pageNo=${page}&pageNum=${size}&groupFlag=${key}`);
 }
-export function fetchConf(id) {
-  return request(constant.APP_GET_CONF+`?id=${id}`)
+export function companyCreate(id) {
+  return request(constant.APP_COMPANY_CREATE+`?thirdId=${id}`);
 }
-export function setConf(values) {
-  return request(constant.APP_CONF,{
-    method:"POST",
-    body:JSON.stringify(values)
-  })
+export function communityCreate({thirdId,communityId}) {
+  return request(constant.APP_COMMUNITY_CREATE+`?thirdId=${thirdId}&communityId=${communityId}`);
 }
-export function remove(id) {
-  return request(constant.APP_DELETE+`?id=${id}`)
+export function fetch_by_eid({id,eid,page=1,size=3}) {
+  return request(constant.APP_BY_EID+`?thirdId=${id}&eid=${eid}&pageNo=${page}&pageNum=${size}`);
 }
-export function patch(values) {
-  return request(constant.APP_EDIT,{
-    method:'POST',
-    body:JSON.stringify(values)
-  })
-}
-export function patchConf(values) {
-  return request(constant.APP_CONF,{
-    method:'POST',
-    body:JSON.stringify(values)
-  })
-}
-export function create(values) {
-  return request(constant.APP_CREATE,{
-    method:'POST',
-    body:JSON.stringify(values)
-  })
+export function fetch_by_organ({id,organizationId,page,size}) {
+  return request(constant.APP_BY_ORGANIZATION+`?thirdId=${id}&organizationId=${organizationId}&pageNo=${page}&pageNum=${size}`);
 }

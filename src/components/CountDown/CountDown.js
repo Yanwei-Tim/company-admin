@@ -58,16 +58,16 @@ export default class CountDown extends React.Component {
     render() {
         const styleObj = {
             color:"#fff",
-            fontSize:16,
+            fontSize:12,
             fontWeight:"normal",
             textAlign:"center",
             margin:'0 auto',
-            background:"#ee735c",
-            width:120,
-            height:40,
-            lineHeight:'40px',
-            marginTop:10,
-            cursor:"pointer"
+            background:"#00a5e0",
+            maxWidth:120,
+            height:30,
+            lineHeight:'30px',
+            cursor:"pointer",
+            borderRadius:'4px'
         };
         const {countType,auto,step,startText,endText,style}=this.props;
         return (

@@ -1,50 +1,137 @@
-.form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -160px 0 0 -160px;
-  width: 320px;
-  height: 320px;
-  padding: 36px;
-  box-shadow: 0 0 100px rgba(0,0,0,.08);
 
-  button {
-    width: 100%;
+@media all and (max-width: 1024px) {
+  .container{
+    height: e("calc(100vh - 220px)");
+    background-color: #00a5e0;
   }
-
-  p {
-    color: rgb(204, 204, 204);
+  .logo {
     text-align: center;
-    margin-top: 16px;
-
-    span {
-      &:first-child {
-        margin-right: 16px;
-      }
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    h2{
+      font-size: 20px;
+      display: inline-block;
+    }
+  }
+  .content{
+    height: 100%;
+    width: 1024px;
+    margin: 0 auto;
+    background: #00a5e0 url("../../assets/login-bg.png") no-repeat left center;
+    position: relative;
+    .ant-form-item{
+        margin-bottom: 0;
+    }
+  }
+  .form {
+    width: 320px;
+    height:auto;
+    padding: 18px 20px;
+    float: right;
+    margin-right: 30px;
+    margin-top:80px;
+    background-color: #ffffff;
+    button {
+      width: 100%;
+      height: 30px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    input{
+      height: 30px;
+    }
+    .login-form-forgot{
+      float: right;
+    }
+  }
+}
+@media all and (min-width: 1024px) and (max-width: 1366px){
+  .container{
+    height: e("calc(100vh - 210px)");
+    background-color: #00a5e0;
+  }
+  .logo {
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    h2{
+      font-size: 24px;
+      display: inline-block;
+    }
+  }
+  .content{
+    height: 100%;
+    width: 1024px;
+    margin: 0 auto;
+    background: #00a5e0 url("../../assets/login-bg.png") no-repeat left center;
+    position: relative;
+  }
+  .form {
+    width: 350px;
+    height:auto;
+    padding: 36px 45px;
+    float: right;
+    margin-right: 30px;
+    margin-top: 30px;
+    box-shadow: 0 0 100px rgba(0,0,0,.08);
+    background-color: #ffffff;
+    button {
+      width: 100%;
+      height: 30px;
+      line-height: 30px;
+      margin-top: 15px;
+      font-size: 16px;
+      padding: 0;
+    }
+    input{
+      height: 30px;
+      margin-top: 10px;
+    }
+    .login-form-forgot{
+      float: right;
     }
   }
 }
 
-.logo {
-  text-align: center;
-  height: 40px;
-  line-height: 40px;
-  cursor: pointer;
-  margin-bottom: 24px;
-
-  img {
-    width: 40px;
-    margin-right: 8px;
+@media all and (min-width: 1366px){
+  .container{
+    height: e("calc(100vh - 210px)");
+    background-color: #00a5e0;
   }
-
-  span {
-    vertical-align: text-bottom;
-    font-size: 16px;
-    text-transform: uppercase;
-    display: inline-block;
+  .content{
+    height: 100%;
+    width: 1200px;
+    margin: 0 auto;
+    background: #00a5e0 url("../../assets/login-bg.png") no-repeat left center;
+    position: relative;
+  }
+  .form {
+    width: 450px;
+    height:auto;
+    padding: 36px 45px;
+    float: right;
+    margin-top: 150px;
+    box-shadow: 0 0 100px rgba(0,0,0,.08);
+    background-color: #ffffff;
+    button {
+      width: 100%;
+      height: 45px;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    input{
+      height: 45px;
+      margin-top: 15px;
+    }
+    .login-form-forgot{
+      float: right;
+    }
   }
 }
-
 .ant-spin-container,
 .ant-spin-nested-loading {
   height: 100%;

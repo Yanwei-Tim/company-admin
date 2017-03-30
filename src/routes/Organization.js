@@ -1,30 +1,16 @@
 import React from 'react';
 import { connect } from 'dva';
-import {Link} from 'dva/router'
-import { Table,Popconfirm,message,Button,Tag,Tree,Row,Col} from 'antd';
-import { routerRedux } from 'dva/router';
-import TreeComponent from '../components/Tree/Tree';
-import OrganModel from '../components/Organization/OrganModel';
+import { Table,Popconfirm,Button,Row,Col} from 'antd';
+import { Link,routerRedux } from 'dva/router';
+import FilterComponent from '../components/Filter/Filter';
 import OrganAppend from '../components/Organization/OrganAppend';
 import {organFlag} from '../utils/index'
 import styles from './Company.less';
-function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,title}) {
-  function search(values) {
-    dispatch(routerRedux.push({
-      pathname: '/organization',
-      query: {...values,eid} ,
-    }));
-  }
+function Organ({dispatch,loading,page,orgId,nodes,list,size,title}) {
   function deleteHandler(record) {
     dispatch({
       type: 'organization/remove',
-      payload: {id:record.id,parentId:record.parentId,eid:record.eid}
-    });
-  }
-  function editHandler(values) {
-    dispatch({
-      type: 'organization/patch',
-      payload: values,
+      payload: {id:record.id,parentId:record.parentId}
     });
   }
   function createHandler(values) {
@@ -33,34 +19,18 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
       payload: {values} ,
     });
   }
-  function onPageChange(page) {
-    dispatch({
-      type:'organization/fetchCompany',
-      payload:{page,id}
-    })
-  }
-  function onSearch(name) {
-    dispatch({
-      type:'organization/fetch',
-      payload:{name,page,eid}
-    })
-  }
-  function loadData(node){
-    const {eventKey,isOrgan,title}=node.props;
-    if(!isOrgan){
-      dispatch(routerRedux.push({
-        pathname: '/organization',
-        query: {eid:eventKey} ,
-      }));
-    }else {
+  function optionChange(id) {
+    if(id){
       dispatch({
         type: 'organization/fetchAll',
-        payload: {id:eventKey,isOrgan,tree:false}
+        payload: {id}
+      });
+    }else {
+      dispatch({
+        type: 'organization/fetch',
+        payload: {}
       });
     }
-  }
-  function selectHandler({node}) {
-    loadData(node)
   }
   const columns = [
     {
@@ -82,26 +52,28 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
       }
     },
     {
-      title: '层级',
-      dataIndex: 'level',
-      key: 'level',
-    },
-    {
       title: '操作',
       dataIndex: 'operation',
       key: 'operation',
       width:'15%',
       render:(text,record)=>{
-        return (<div className={styles['antd-operation-link']}>
-          <OrganAppend record={record} onOk={createHandler} title="新增机构" company={title}>
-            <a href="javascript:void(0)" style={{color:'#7265e6'}}>新增</a>
-          </OrganAppend>
-          <OrganModel record={record} onOk={editHandler} title="编辑机构" >
-            <a href="javascript:void(0)" className={styles['edit-text']}>编辑</a>
-          </OrganModel>
-          <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record)}>
-            <a href="javascript:void(0)">删除</a>
-          </Popconfirm>
+        const linkProps={
+           pathname:"/organization/edit",
+           query:{organizationId:record.id},
+           state:{record,nodes}
+        }
+        return (<div>
+          {
+            record.parentId==="-255"?(""):(<div className={styles['antd-operation-link']}>
+              <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record)}>
+                <a href="javascript:void(0)">删除</a>
+              </Popconfirm>
+              <Link to={linkProps} className={styles['edit-text']}>
+                编辑
+              </Link>
+            </div>)
+          }
+
         </div>)
       }
      }
@@ -109,43 +81,38 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
   const pagination={
     total:list&&list.length,
     showTotal:(total)=> `共 ${total} 条记录`,
-    showSizeChanger:true,
     pageSize:size,
-    onShowSizeChange:(current,size)=>{
-      routerRedux.push({
-        pathname: '/organization',
-        query: {eid,size} ,
-      })
-    }
   };
   return (
     <div>
-      <Row>
-        <Col span="6">
-         <TreeComponent rootData={company.data} nodesData={nodes}  onSearch={onSearch}  loadData={loadData} selectHandler={selectHandler} draggable={true} onDrop={editHandler}/>
+      <FilterComponent nodes={nodes} onChange={optionChange} defaultValue={orgId}  placeholder="组织机构" style={{width:250}}/>
+      <Row className={styles.operation}>
+        <Col span={12}>
+          <h4>社区管理</h4>
         </Col>
-        <Col span="18">
-         <Table
-            columns={columns}
-            dataSource={list}
-            pagination={pagination}
-            loading={loading}
-            rowKey={record => record.id}
-          />
+        <Col span={12}>
+          <div className={styles.btnGroup}>
+            <OrganAppend record={{nodeFlag:0}} onOk={createHandler} title="新增机构"  nodes={nodes} >
+              <Button className={styles.add}>添加</Button>
+            </OrganAppend>
+          </div>
         </Col>
       </Row>
+        <Table
+          columns={columns}
+          dataSource={list}
+          pagination={pagination}
+          loading={loading}
+          rowKey={record => record.id}
+        />
     </div>
   );
 }
 function mapStateToProps(state) {
-  const { data,page,eid,nodes,list,size,title} = state.organization;
-  const company = state.company.data;
+  const { page,nodes,list,size,title} = state.organization;
   return {
     loading: state.loading.models.organization,
-    data,
     page,
-    company,
-    eid,
     list,
     nodes,
     size,

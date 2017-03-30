@@ -1,9 +1,8 @@
 import React,{Component} from 'react';
-import { Modal, Form, Input,Cascader,Row,Col,message,Button,Spin  } from 'antd';
+import {Form, Input,Cascader,Row,Col,message,Button,Spin  } from 'antd';
 import MapComponent from '../../components/Map/Map';
 const FormItem = Form.Item;
 const Search = Input.Search;
-
 let point={};
 class Community extends Component{
   constructor(props){
@@ -22,29 +21,31 @@ class Community extends Component{
         address:value
       });
   }
-  okHandler(){
+  okHandler(id){
     const { onOk } = this.props;
     const {resetFields}=this.props.form;
     this.props.form.validateFields((err, values) => {
       const {lng,lat}=point;
       if (!err) {
-        onOk(Object.assign({},values,{gpsLongitude:lng,gpsLatitude:lat}));
+        let organizationId=values.parents[values.parents.length-1];
+        delete values.parents;
+        onOk(Object.assign({},values,{gpsLongitude:lng,gpsLatitude:lat,id,organizationId}));
       }
     });
   }
   render(){
     const { getFieldDecorator } = this.props.form;
-    const { name,address,gpsLatitude,gpsLongitude,organizationId,orgTitle} = this.props.record;
-    const { title,id} = this.props.organ;
+    const {id, name,address,gpsLatitude,gpsLongitude} = this.props.record;
+    const { nodes,parents=[]} = this.props;
     const formItemLayout = {
-      labelCol: { span: 4 },
-      wrapperCol: { span:19},
+      labelCol: { span: 6 },
+      wrapperCol: { span:18},
     };
       const tailFormItemLayout = {
           wrapperCol: {
-              span: 12,
+              span: 18,
               offset: 1,
-          },
+          }
       };
     const mapProps={
       city:null,
@@ -59,25 +60,43 @@ class Community extends Component{
         width:"100%"
       }
     }
-
+    const options = {
+      value: nodes.id,
+      label: nodes.nodeName,
+      children: [],
+    };
+    const loop=(data=[],children)=>{
+      data.map((item)=>{
+        let obj={
+          label:item.nodeName,
+          value:item.id
+        };
+        children.push(obj);
+        if(item.organizationList.length){
+          obj.children=[];
+          loop(item.organizationList,obj["children"])
+        }
+      })
+    };
+    loop(nodes.organizationList,options.children);
     return (
-      <div>
+      <div style={{marginTop:50}}>
         <Spin spinning={this.props.loading}>
           <Form>
             <Row>
               <Col span={11}>
                 <FormItem {...formItemLayout}
-                          label="组织机构">
+                          label="上级机构">
                     {
-                        getFieldDecorator('organizationId', {
-                            initialValue: id||organizationId,
+                        getFieldDecorator('parents', {
+                            initialValue: parents.length===1?[nodes.id,parents[0]]:parents,
                             rules: [
                                 {
                                     required: true,
-                                    message: '请选择组织机构'
+                                    message: '请选择上级'
                                 }
                             ]
-                        })(<span className="ant-form-text">{title||orgTitle}</span>)
+                        })(<Cascader options={[options]}  changeOnSelect={true} placeholder=""/>)
                     }
                 </FormItem>
               </Col>
@@ -106,7 +125,6 @@ class Community extends Component{
             </Row>
             <Row>
               <Col span={11} >
-
                 <FormItem
                     {...formItemLayout}
                     label="详细地址"
@@ -129,7 +147,7 @@ class Community extends Component{
               </Col>
               <Col span={8}>
                 <FormItem {...tailFormItemLayout} >
-                  <Button type="primary" onClick={this.okHandler.bind(this)} size="large">提交</Button>
+                  <Button type="primary" onClick={this.okHandler.bind(this,id)} size="large">提交</Button>
                 </FormItem>
               </Col>
             </Row>

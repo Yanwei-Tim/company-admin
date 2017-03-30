@@ -4,7 +4,7 @@ export default {
   namespace: 'building',
   state: {
     data:{},
-    size:20,
+    size:10,
     community:{
       data:[]
     }
@@ -15,11 +15,11 @@ export default {
     }
   },
   effects: {
-    *fetch({payload:{id,page=1,size=20,name='',code=''}},{call,put}){
+    *fetch({payload:{id,page=1,size=10,name='',code=''}},{call,put}){
       let data= yield call(Service.fetch,{page,size,name,id,code});
       yield put({ type: 'save', payload: {data,id,page:parseInt(page),size:parseInt(size)} });
     },
-    *fetchCommunity({payload:{pageNo=1,name,page,size,id}},{call,put,select}){
+    *fetchCommunity({payload:{pageNo=1,name,page=1,size=10,id}},{call,put,select}){
       let community=yield call(fetch,{page:pageNo,name});
       const data={
          data:yield select(state=>state.building.data)
@@ -38,6 +38,7 @@ export default {
     },
     *create({payload:values},{call,put}){
       let data=yield call(Service.create,values);
+      yield put({type:'reload',payload:{id:values.communityId}});
     },
     *reload({payload:{id}},{put,select}){
       const page=yield select(state=>state.building.page);
@@ -48,10 +49,10 @@ export default {
   subscriptions: {
     setup({dispatch,history}){
       return history.listen(({pathname,query})=>{
-        if(pathname==='/building'){
+        if(pathname==='/community/building'){
           dispatch({type:'fetch',payload:query});
         }
-        if(pathname==='/building/append'){
+        if(pathname==='/community/building/append'){
           dispatch({type:'fetchCommunity',payload:query});
         }
       })

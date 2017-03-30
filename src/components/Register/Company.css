@@ -1,0 +1,63 @@
+
+@media all and (max-width: 1024px){
+  .container{
+    width: 1000px;
+    background: #ffffff;
+    margin: 40px auto ;
+    color: #222222;
+  }
+}
+@media all and (max-width: 1280px){
+  .container{
+    width: 1024px;
+    background: #ffffff;
+    margin: 40px auto ;
+    color: #222222;
+  }
+}
+@media all and (min-width: 1366px){
+  .container{
+    width: 1200px;
+    background: #ffffff;
+    margin: 40px auto ;
+    color: #222222;
+  }
+}
+.content{
+  padding: 80px 100px;
+  border-top: 1px solid #dbdbdb;
+}
+.title{
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 45px;
+  border-bottom: 1px solid #ececec;
+}
+.description{
+  font-size: 14px;
+  font-weight: 600;
+}
+.description-title{
+  line-height: 35px;
+  margin: 20px 0;
+}
+.list{
+  list-style: decimal inside;
+  line-height: 35px;
+}
+
+.button{
+  height: 45px;
+  display: block;
+  width: 100%;
+  margin-top: 35px;
+  font-size: 16px;
+}
+.cloud-form-item{
+  margin-bottom: 40px;
+}
+.cloud-form-item label{
+  color: #222;
+  font-weight: 600;
+  font-size: 14px;
+}

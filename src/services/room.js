@@ -1,7 +1,7 @@
 import request from '../utils/request';
 import constant from '../utils/constant'
-export function fetch({page=1,size=20,number='',houseNumber='',ownerName='',buildingId}) {
-  let url=`?pageNo=${page}&pageNum=${size}&buildingId=${buildingId}&number=${number}&houseNumber=${houseNumber}&ownerName=${ownerName}`;
+export function fetch({page=1,size=20,buildingId,name=''}) {
+  let url=`?pageNo=${page}&pageNum=${size}&buildingId=${buildingId}&name=${name}`;
   return request(constant.ROOM_LIST+url);
 }
 export function remove(id) {

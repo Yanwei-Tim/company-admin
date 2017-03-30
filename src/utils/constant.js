@@ -1,14 +1,18 @@
 export default {
+  APP_ID:"3e8e82198a0f4a6fa69n2718a75cbe02",
   //登录模块
-  LOGIN_ACCOUNT:"/api/account/loginByAccountForWeb",//用户登录
+  LOGIN_ACCOUNT:"/api/enterprise/admin/login",//用户登录
+  FIND_PWD:"/api/account/forgetPwd4JsonParam",
+  //企业
   COMPANY_LIST:"/api/enterprise/getEnterprisesByPage",//企业列表
-  COMPANY_INFO:"/api/enterprise/getInfo",//企业信息
+  COMPANY_INFO:"api/enterprise/admin/getEnterpriseInfo",//企业信息
   COMPANY_DELETE:"/api/enterprise/deleteEnterprise",//删除企业
-  COMPANY_EDIT:"/api/enterprise/updateEnterprise",//企业编辑
+  COMPANY_EDIT:"/api/enterprise/admin/finishEnterpriseInfo",//企业编辑
   COMPANY_CREATE:"/api/enterprise/insertEnterprise",//新增企业
   COMPANY_UPLOAD:"/api/enterprise/cloud/uploadExcel",//上传
   COMPANY_READ:"/api/enterprise/cloud/execute",//读取上传后的数据
   COMPANY_READ_STATUS:"/api/enterprise/cloud/getLoadStatus",//数据执行状态
+  //社区
   COMMUNITY:"/api/community/getByWhere",//查询社区
   COMMUNITY_LIST:"/api/community/getCommunityByOrganization",//特定组织机构社区列表
   COMMUNITY_LIST_ALL:"/api/community/getCommunityByOrganizationAll",//组织机构所有社区列表
@@ -16,26 +20,32 @@ export default {
   COMMUNITY_CREATE:"/api/community/insertCommunity",//新增社区
   COMMUNITY_DELETE:"/api/community/deleteCommunity",//删除社区
   COMMUNITY_EDIT:"/api/community/updateCommunity",//编辑社区
-  APP_LIST:"/api/third/getByPage",//应用列表
-  APP_DELETE:"/api/third/deleteThird",//删除应用
-  APP_CREATE:"/api/third/insertThird",//新增应用
+  //应用
+  APP_LIST:"/api/enterprise/admin/enterpriseShowThirdByPage",//应用列表
+  APP_COMPANY_CREATE:"/api/enterprise/admin/requestEnterpriseThird",//企业申请应用
+  APP_COMMUNITY_CREATE:"/api/enterprise/admin/requestCommunityThird",//企业申请应用
   APP_EDIT:"/api/third/updateThird",//编辑应用
-  APP_GET_CONF:"/api/third/getCallbackUrl",//获取应用回调
-  APP_CONF:"/api/third/setCallbackUrl",//设置回调
+  APP_BY_EID:"/api/enterprise/admin/getCommunityByEnterpriseIDAndThirdID",//根据eid获取社区应用
+  APP_BY_ORGANIZATION:"/api/enterprise/admin/getCommunityByOrganizationIDAndThirdID",//根据组织机构获取社区
+  //楼宇
   BUILDING_LIST:"/api/community/getBuildingByCommunity",//楼宇列表
   BUILDING_DELETE:"/api/community/deleteBuilding",//删除楼宇
   BUILDING_EDIT:"/api/community/updateBuilding",//编辑楼宇
   BUILDING_CREATE:"/api/community/insertBuilding",//创建楼宇
-  ORGAN_LIST_COMPANY:"/api/enterprise/getEnterpriseOrganizations",//企业下属所有机构
+  //机构
+  ORGAN_LIST_COMPANY:"/api/enterprise/admin/getOwnerEnterpriseOrganizations",//所有机构
   ORGAN_LIST_CHILDREN:"/api/enterprise/getOrganizationChilds",//所有子机构
-  ORGAN_EDIT:"/api/enterprise/updateOrganization",//修改
-  ORGAN_DELETE:"/api/enterprise/deleteOrganization",//删除
-  ORGAN_CREATE:"/api/enterprise/insertOrganization",//新增
+  ORGAN_EDIT:"/api/enterprise/admin/updateOrganization",//修改
+  ORGAN_DELETE:"/api/enterprise/admin/deleteOrganization",//删除
+  ORGAN_CREATE:"/api/enterprise/admin/insertOrganization",//新增
   ORGAN_DETAILS:"/api/enterprise/getOrganizationById",//详细
-  AUTHORIZE_LIST:"/api/permission/enterprise/getPermissionAllByEnterprise",//权限列表
+  ORGAN_GET_PARENTS:"/api/enterprise/admin/getOrganizationLineByID",//获取所有上级id
+  //权限
+  AUTHORIZE_LIST:"/api/enterprise/admin/getPermissionByAccountToken",//权限列表
   AUTHORIZE_CREATE:"/api/permission/system/insertPermission",//新增
   AUTHORIZE_DELETE:"/api/permission/system/deletePermission",//禁用
   AUTHORIZE_EDIT:"/api/permission/system/updatePermission",//编辑
+  //角色
   ROLE_LIST:"/api/permission/enterprise/getRoleByWhere",//角色列表
   ROLE_DELETE:"/api/permission/enterprise/deleteRole",//删除角色
   ROLE_CREATE:"/api/permission/enterprise/insertRole",//新增角色
@@ -48,19 +58,27 @@ export default {
   ROLE_COMMUNITY_BINDING:"/api/permission/system/bindRoleToCommunity",//企业绑定角色
   ROLE_USER_LIST:"/api/permission/enterprise/getMemberRole",//用户绑定角色列表
   ROLE_USER_BINDING:"/api/permission/enterprise/bindRoleToMember",//用户绑定角色
+  //房间
   ROOM_LIST:"/api/community/getRoomByBuilding",//获取某楼所有房间
   ROOM_DELETE:"/api/community/deleteRoom",//删除房间
   ROOM_CREATE:"/api/community/insertRoom",//新增房间
   ROOM_EDIT:"/api/community/updateRoom",//修改房间
+  //员工
   USERS_LIST:"",//用户列表
   USERS_CREATE:"/api/enterprise/insertMember",//新增用户
   USERS_DELETE:"/api/enterprise/deleteMember",//用户删除
   USERS_EDIT:"/api/enterprise/updateMember",//用户编辑
-  USERS_LIST_COMPANY:"/api/enterprise/getMemberByEnterprise",//获取企业所有员工
+  USERS_LIST_COMPANY:"/api/enterprise/admin/getOwnerEnterpriseMember",//获取企业所有员工
+  USERS_LIST_COMPANY_WHERE:"/api/enterprise/admin/findOwnerEnterpriseMemberByWhere",//获取企业所有员工
   USERS_LIST_ORGAN:"/api/enterprise/getMemberByOrganizationAll",//获取组织所有员工
   //验证码
   VALID_CODE:"/api/enterprise/admin/getValidCode",//验证码
+  VALID_TOKEN:"/api/account/checkToken",//检查token
+  OSS_TOKEN:"/sys/getOssToken",//oss-token
   //注册
+  VALIDATE_ACCOUNT:"/api/account/checkAccountWtihAccount",//查询用户是否存在
   REGISTER_POST:"/api/enterprise/admin/register",//注册
+  REGISTER_COMPANY_POST:"/api/enterprise/admin/finishEnterpriseInfo",//完善企业信息
+
 
 }

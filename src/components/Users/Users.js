@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import {  Form, Input,Button,Spin } from 'antd';
-
+import {  Form, Input,Button,Spin,Cascader } from 'antd';
 const FormItem = Form.Item;
-
 class User extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -13,55 +10,77 @@ class User extends Component {
     }
     okHandler = () => {
         const { onOk } = this.props;
+       const {id}=this.props.record;
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                onOk(values);
-                this.props.form.resetFields();
+              let organizationId=values.parents[values.parents.length-1];
+              delete values.parents;
+              onOk(Object.assign({},values,{organizationId,id}));
+              this.props.form.resetFields();
             }
         });
     };
     render() {
         const { getFieldDecorator } = this.props.form;
-        const {loading}=this.props;
+        const {parents=[],nodes}=this.props;
+        const {code,name,phone}=this.props.record;
+        const options = {
+          value: nodes.id,
+          label: nodes.nodeName,
+          children: [],
+        };
+        const loop=(data=[],children)=>{
+        data.map((item)=>{
+          let obj={
+            label:item.nodeName,
+            value:item.id
+          };
+          children.push(obj);
+          if(item.organizationList.length){
+            obj.children=[];
+            loop(item.organizationList,obj["children"])
+          }
+         })
+        };
+        loop(nodes.organizationList,options.children);
         const formItemLayout = {
-            labelCol: { span: 2 },
+            labelCol: { span: 4 },
             wrapperCol: { span: 8 },
         };
         const tailFormItemLayout = {
             wrapperCol: {
                 span: 12,
-                offset: 2,
+                offset: 4,
             },
         };
-        const {id,title}=this.props.record;
         return (
 
              <Spin spinning={false}>
-               <span>
+               <div style={{marginTop:50}}>
                  <Form onSubmit={this.okHandler}>
-              <FormItem
+                  <FormItem
                   {...formItemLayout}
                   label="部门"
               >
                   {
-                      getFieldDecorator('organizationId', {
-                          initialValue: id,
+                      getFieldDecorator('parents', {
+                          initialValue: parents.length===1?[nodes.id,parents[0]]:parents,
                           rules:[
                               {
                                   required:true,
                                   message:"选择部门"
                               }
                           ]
-                      })(<span className="ant-form-text">{title}</span>)
+                      })(<Cascader options={[options]}  changeOnSelect={true} placeholder="" />)
                   }
             </FormItem>
-            <FormItem
+                  <FormItem
                 {...formItemLayout}
                 label="工号"
             >
               {
                   getFieldDecorator('code', {
-                      initialValue: '',
+                      initialValue: code,
                       rules:[
                           {
                               required:true,
@@ -71,13 +90,13 @@ class User extends Component {
                   })(<Input />)
               }
             </FormItem>
-            <FormItem
+                  <FormItem
                 {...formItemLayout}
                 label="名称"
             >
               {
                   getFieldDecorator('name', {
-                      initialValue: '',
+                      initialValue:name,
                       rules:[
                           {
                               required:true,
@@ -87,13 +106,13 @@ class User extends Component {
                   })(<Input />)
               }
             </FormItem>
-            <FormItem
+                  <FormItem
                 {...formItemLayout}
                 label="手机号"
             >
               {
                   getFieldDecorator('phone', {
-                      initialValue: '',
+                      initialValue: phone,
                       rules:[
                           {
                               required:true,
@@ -103,14 +122,12 @@ class User extends Component {
                   })(<Input />)
               }
             </FormItem>
-              <FormItem {...tailFormItemLayout} >
-                <Button type="primary" onClick={this.okHandler.bind(this)} size="large">提交</Button>
-              </FormItem>
-          </Form>
-               </span>
+                  <FormItem {...tailFormItemLayout} >
+                    <Button type="primary" onClick={this.okHandler.bind(this)} size="large">提交</Button>
+                  </FormItem>
+                 </Form>
+               </div>
              </Spin>
-
-
         );
     }
 }

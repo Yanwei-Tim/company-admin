@@ -5,7 +5,7 @@ import BingdingComponent from '../components/Accredit/Bingding'
 function Accredit({dispatch,authorize,location,loading,roleId,accredit}) {
   let targetKeys=[];
   accredit.map((key)=>{
-    targetKeys.push(key.id);
+    targetKeys.push(key.permissionId);
   });
   function submitHandler(values) {
     let permissionList=[];
@@ -22,9 +22,9 @@ function Accredit({dispatch,authorize,location,loading,roleId,accredit}) {
   }
   const {code,name}=location.state.record;
   return (
-    <div >
-      <h4>角色编号：{code}</h4>
-      <h4>角色名称：{name}</h4>
+    <div>
+      <p style={{color:"#8d8d8d"}}>角色编号：{code}</p>
+      <p style={{color:"#8d8d8d"}}>角色名称：{name}</p>
       <br/>
       <BingdingComponent dataSource={authorize} targetKeys={targetKeys}  onOk={submitHandler} loading={loading} />
     </div>

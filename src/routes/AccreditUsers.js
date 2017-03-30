@@ -8,7 +8,7 @@ function AccreditCommunity({dispatch,roles,loading,memberId,accredit,location}) 
             var obj={
                 roleId:key
             };
-            roleList.push(obj);
+          roleList.push(obj);
         });
         dispatch({
             type:'accredit/patchUser',
@@ -17,7 +17,7 @@ function AccreditCommunity({dispatch,roles,loading,memberId,accredit,location}) 
     }
     let targetKeys=[];
     accredit.map((key)=>{
-        targetKeys.push(key.id);
+        targetKeys.push(key.roleId);
     });
     const {name,code} =location.state.record;
     return (
@@ -29,7 +29,6 @@ function AccreditCommunity({dispatch,roles,loading,memberId,accredit,location}) 
         </div>
     );
 }
-
 function mapStateToProps(state) {
     const {data}=state.role;
     const {memberId,accredit}=state.accredit;

@@ -1,0 +1,79 @@
+@media (max-width: 1024px) {
+  .container{
+    width: 900px;
+    background: #ffffff;
+    margin: 40px auto ;
+    color: #222222;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .container{
+    width: 1000px;
+    background: #ffffff;
+    margin: 40px auto ;
+    color: #222222;
+  }
+}
+@media (min-width: 1366px) {
+  .container{
+    width: 1200px;
+    background: #ffffff;
+    margin: 40px auto ;
+    color: #222222;
+  }
+}
+.content{
+  padding: 80px;
+  border-top: 1px solid #dbdbdb;
+}
+.countdown{
+  color:#fff;
+  font-size: 16px;
+  font-weight:normal;
+  text-align:center;
+  margin:10px auto;
+  background:#00a5e0;
+  width:120px;
+  height: 30px;
+  line-height:30px;
+}
+.button{
+  height: 45px;
+  display: block;
+  width: 100%;
+  margin-top: 35px;
+  font-size: 16px;
+}
+.title{
+  line-height: 45px;
+  padding-left: 15px;
+  background: #f4f5f9;
+}
+.success_content{
+  text-align: center;
+
+}
+.success_icon{
+  font-size: 35px;
+  color: #09bb07;margin-bottom: 15px;
+}
+.link_btn{
+  display:inline-block;
+  height: 35px;
+  width: 150px;
+  color: #ffffff;
+  margin-top: 20px;
+  background-color: #00a5e0;
+  line-height: 35px;
+}
+.link_btn:hover{
+  color: #ffffff;
+}
+.cloud-form-item{
+  margin-bottom: 40px;
+}
+.cloud-form-item label{
+  color: #222;
+  font-weight: 600;
+  font-size: 14px;
+}

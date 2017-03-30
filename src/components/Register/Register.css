@@ -1,18 +1,56 @@
-.container{
+
+@media all and (max-width: 1024px){
+  .container{
+    width: 1000px;
+
+  }
+}
+@media (min-width: 1024px) and (max-width: 1366px){
+  .container{
     width: 1024px;
-    background: #ffffff;
-    margin: 0 auto;
-    padding: 100px;
+
+  }
+}
+@media all and (min-width: 1366px){
+  .container{
+    width: 1200px;
+
+  }
+}
+.container{
+  min-height: e("calc(100vh - 140px)");
+  background: #ffffff;
+  margin: 40px auto ;
+  color: #222222;
+}
+.content {
+  padding: 80px;
+  border-top: 1px solid #dbdbdb;
+
+}
+.cloud-form-item{
+  margin-bottom: 40px;
+}
+.cloud-form-item label{
+  color: #222;
+  font-weight: 600;
+  font-size: 14px;
 }
 .countdown{
     color:#fff;
     font-size: 16px;
     font-weight:normal;
     text-align:center;
-    margin:0 auto;
-    background:#ee735c;
+    margin:10px auto;
+    background:#00a5e0;
     width:120px;
-    height: 40px;
-    line-height:40px;
-    margin-top: 10px;
+    height: 30px;
+    line-height:30px;
+}
+.button{
+  height: 45px;
+  display: block;
+  width: 100%;
+  margin-top: 35px;
+  font-size: 16px;
 }

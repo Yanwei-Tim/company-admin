@@ -20,30 +20,26 @@ class Search extends Component{
 
     const formItemLayout = {
       labelCol: { span:0 },
-      wrapperCol: { span: 20},
+      wrapperCol: { span: 24},
     };
     return (
-      <div>
-        <Form horizontal onSubmit={this.submitHandler.bind(this)}>
-          <Row>
-            <Col span="6">
+      <div className={styles.container}>
+        <Form layout="inline" onSubmit={this.submitHandler.bind(this)}>
+
               <FormItem {...formItemLayout} label=''>
                 {getFieldDecorator(`code`)(
-                  <Input placeholder="楼宇编号"/>
+                  <Input placeholder="楼宇编号" />
                 )}
               </FormItem>
-            </Col>
-            <Col span="6">
               <FormItem {...formItemLayout} label=''>
                 {getFieldDecorator(`name`)(
-                  <Input placeholder="楼宇名称"/>
+                  <Input placeholder="楼宇名称" />
                 )}
               </FormItem>
-            </Col>
-            <Col span="6">
-              <Button type="primary" htmlType="submit" >搜索</Button>
-            </Col>
-          </Row>
+
+                <FormItem {...formItemLayout} label=''>
+                  <Button type="primary" htmlType="submit" >搜索</Button>
+                </FormItem>
         </Form>
 
       </div>

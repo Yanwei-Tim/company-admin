@@ -2,24 +2,24 @@
 export default {
   namespace: 'app',
   state: {
-    darkTheme:localStorage.getItem("DarkTheme")==="false"?false:true
+
   },
   reducers: {
-    handleTheme(state){
-      localStorage.setItem("DarkTheme",!state.darkTheme);
-      return {
-        ...state,
-        darkTheme:!state.darkTheme
-      }
-    }
+    save(state,{payload:{status,token}}){
+      return {...state,status,token};
+    },
   },
   effects: {
-    *changeTheme({payload},{put}){
-       yield put({type:'handleTheme'})
-    }
+
   },
   subscriptions: {
-    setup({ dispatch },done){
+    setup({dispatch,history},done){
+      return history.listen(({pathname,query})=>{
+        const exclude=["/","/login","login","/register","register","/find/password","find/password"];
+        if(exclude.indexOf(pathname)===-1){
+         // dispatch({type:'utils/validToken',payload:query});
+        }
+      });
     }
   },
 }

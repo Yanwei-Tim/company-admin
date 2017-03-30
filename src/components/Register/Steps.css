@@ -1,0 +1,18 @@
+.container{
+  height: 44px;
+  line-height: 44px;
+  background: #ffffff;
+  color: #8d8d8d;
+  text-align: center;
+  font-weight:600;
+}
+.step-current-0{
+  background:  url("../../assets/step.png") no-repeat left center;
+  background-size: contain;
+  color: #ffffff;
+}
+.step-current{
+  background:  url("../../assets/step-2.png") no-repeat left center;
+  background-size: contain;
+  color: #ffffff;
+}

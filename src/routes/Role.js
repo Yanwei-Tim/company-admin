@@ -1,21 +1,13 @@
 import React from 'react';
 import { connect } from 'dva';
 import {Link} from 'dva/router'
-import { Table,Popconfirm,message,Button,Tag} from 'antd';
+import { Table,Popconfirm,Row,Col,Button,Tag} from 'antd';
 import RoleModel from '../components/Role/RoleModel';
-import SearchComponent from '../components/Role/Search'
+import SearchComponent from '../components/Search/Search'
 import { routerRedux } from 'dva/router';
 import styles from './Company.less'
 function Authorize({dispatch,data,loading,size,page}) {
-
-  function search(value) {
-    dispatch(routerRedux.push({
-      pathname: '/role',
-      query: value ,
-    }));
-  }
   function editHandler(id,values) {
-    console.log(values)
     dispatch({
       type: 'role/patch',
       payload: { id, ...values },
@@ -28,12 +20,6 @@ function Authorize({dispatch,data,loading,size,page}) {
     });
   }
   function forbidden(id) {
-    dispatch({
-      type: 'role/remove',
-      payload: id ,
-    });
-  }
-  function start(id) {
     dispatch({
       type: 'role/remove',
       payload: id ,
@@ -55,13 +41,13 @@ function Authorize({dispatch,data,loading,size,page}) {
       dataIndex: 'disable',
       key: 'disable',
       render:(text)=>{
-        return(text?<Tag color="orange">禁用</Tag>:<Tag color="green">启用</Tag>)
+        return(text?<span style={{color:"#ff5a60"}}>禁用</span>:<span style={{color:"#00a510"}}>启用</span>)
       }
     },
     {
       title: '操作',
       key: 'operation',
-      width:'15%',
+      width:'20%',
       render:(record)=>{
         const linkProps={
           pathname:'accredit',
@@ -84,18 +70,27 @@ function Authorize({dispatch,data,loading,size,page}) {
   const pagination={
     total:data.count,
     showTotal:(total)=> `共 ${total} 条记录`,
-    showSizeChanger:true,
-    pageSize:size,
-    onShowSizeChange:(current,pageSize)=>{
+    pageSize:10,
+    onChange:(page)=>{
       dispatch({
-        type: '/size',
-        query: { page:current,size:pageSize },
-      });
-    },
+        type:"role/fetch",
+        payload:{page}
+      })
+    }
   };
   return (
     <div>
-      <SearchComponent search={search} createHandler={createHandler}/>
+      <Row className={styles.operation}>
+        <Col span={12}>
+        </Col>
+        <Col span={12}>
+          <div className={styles.btnGroup}>
+            <RoleModel record={{}} onOk={createHandler} title="添加角色">
+              <Button className={styles.add} >添加</Button>
+            </RoleModel>
+          </div>
+        </Col>
+      </Row>
       <Table
         columns={columns}
         dataSource={data.data}

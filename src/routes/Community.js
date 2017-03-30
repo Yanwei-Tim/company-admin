@@ -1,15 +1,24 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Table,Popconfirm,message,Button,Row,Col} from 'antd';
-import TreeComponent from '../components/Tree/Tree'
+import { Table,Popconfirm,Button,Row,Col} from 'antd';
+import SearchComponent from '../components/Search/Search';
+import FilterComponent from '../components/Filter/Filter';
 import { routerRedux,Link } from 'dva/router';
 import styles from './Company.less'
-function Community({dispatch,list,loading,size,company,nodes,orgId,title}) {
+function Community({dispatch,list,loading,size,page,name,nodes,orgId,title}) {
   function onSearch(value) {
-    dispatch(routerRedux.push({
-      pathname: '/community',
-      query: value ,
-    }));
+    if(orgId){
+      dispatch({
+        type: 'community/fetchByOrgan',
+        payload: {...value,orgId} ,
+      });
+    }else {
+      dispatch({
+        type: 'community/fetchByCompany',
+        payload: value ,
+      });
+    }
+
   }
   function deleteHandler(id) {
     dispatch({
@@ -17,34 +26,38 @@ function Community({dispatch,list,loading,size,company,nodes,orgId,title}) {
       payload: {id} ,
     });
   }
-  function editHandler(id,values) {
-    dispatch({
-      type: 'community/patch',
-      payload: { id, ...values },
-    });
+  function addLink() {
+    dispatch(routerRedux.push({
+      pathname:'community/append'
+    }))
   }
-  function createHandler(values) {
-    dispatch({
-      type: 'community/create',
-      payload: values ,
-    });
-  }
-  function loadData(node){
-    const {eventKey,isOrgan,title}=node.props;
-    if(isOrgan){
+  function  pageHandle(page) {
+    if(orgId){
       dispatch({
         type: 'community/fetchByOrgan',
-        payload: {orgId:eventKey,title}
+        payload: {orgId,page,size,} ,
       });
     }else {
       dispatch({
-        type:"organization/fetchOnly",
-        payload:{eid:eventKey,title}
+        type: 'community/fetchByCompany',
+        payload: {page,size,name}
       });
     }
   }
-  function selectHandler({node}) {
-    loadData(node)
+
+  function optionChange(id) {
+    if(id){
+      dispatch({
+        type: 'community/fetchByOrgan',
+        payload: {orgId:id}
+      });
+    }else {
+      dispatch({
+        type: 'community/fetchByCompany',
+        payload: {}
+      });
+    }
+
   }
   const columns = [
     {
@@ -65,10 +78,10 @@ function Community({dispatch,list,loading,size,company,nodes,orgId,title}) {
     {
       title: '操作',
       key: 'operation',
-      width:'25%',
+      width:180,
       render:(record)=>{
         const link={
-          pathname:'/building',
+          pathname:'/community/building',
           query:{id:record.id},
           state:{community:record}
         };
@@ -79,11 +92,10 @@ function Community({dispatch,list,loading,size,company,nodes,orgId,title}) {
         };
         const editProps={
             pathname:'/community/edit',
-            query:{id:record.id},
-            state:{community:{...record,orgTitle:title}}
+            query:{id:record.id,organizationId:record.organizationId},
+            state:{record:record}
         };
         return (<div className={styles['antd-operation-link']}>
-          <Link to={linkProps} className={styles['text-green']}>授权</Link>
           <Link to={link} className={styles['text-green']}>查看楼宇</Link>
           <Link to={editProps} className={styles['edit-text']}>编辑</Link>
          <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>
@@ -98,35 +110,48 @@ function Community({dispatch,list,loading,size,company,nodes,orgId,title}) {
     showTotal:(total)=> `共 ${total} 条数据`,
     showSizeChanger:true,
     pageSize:size,
+    onChange:pageHandle,
     onShowSizeChange:(current,size)=>{
-      dispatch({
-        type: 'community/size',
-        query: {size },
-      });
+      if(orgId){
+        dispatch({
+          type: 'community/fetchByOrgan',
+          payload: {orgId,page,size,} ,
+        });
+      }else {
+        dispatch({
+          type: 'community/fetch',
+          payload: {page,size,name}
+        });
+      }
     },
   }
   return (
     <div>
-      <Row>
-        <Col span="6">
-           <TreeComponent rootData={company.data} nodesData={nodes} loadData={loadData} selectHandler={selectHandler} orgId={orgId}/>
+      <SearchComponent placeholder="社区名称" onSearch={onSearch}/>
+      <FilterComponent nodes={nodes} onChange={optionChange} defaultValue={orgId}  placeholder="组织机构" style={{width:250}}/>
+      <Row className={styles.operation}>
+        <Col span={12}>
+          <h4>社区管理</h4>
         </Col>
-        <Col span="18">
-          <Table
-            columns={columns}
-            dataSource={list.data}
-            rowKey={record => record.id}
-            pagination={pagination}
-            loading={loading}
-          />
+        <Col span={12}>
+          <div className={styles.btnGroup}>
+            <Button className={styles.add} onClick={addLink}>添加</Button>
+          </div>
         </Col>
       </Row>
 
+      <Table
+        columns={columns}
+        dataSource={list.data}
+        rowKey={record => record.id}
+        pagination={pagination}
+        loading={loading}
+      />
     </div>
   );
 }
 function mapStateToProps(state) {
-  const { list,size,eid,orgId,title} = state.community;
+  const { list,size,eid,orgId,title,name} = state.community;
   const {data,page}=state.company;
   const {nodes} =state.organization;
   return {
@@ -138,7 +163,8 @@ function mapStateToProps(state) {
     nodes,
     eid,
     orgId,
-    title
+    title,
+    name,
   };
 }
 export default connect(mapStateToProps)(Community);

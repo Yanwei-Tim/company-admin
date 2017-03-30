@@ -1,7 +1,7 @@
 import request from '../utils/request';
 import constant from '../utils/constant'
-export function fetch({eid,tree=true}) {
-  return request(constant.ORGAN_LIST_COMPANY+`?eid=${eid}&treeModeReturn=${tree}`)
+export function fetch({tree=true}) {
+  return request(constant.ORGAN_LIST_COMPANY+`?treeModeReturn=${tree}`)
 }
 export function fetchChildren({id,tree=true}) {
   return request(constant.ORGAN_LIST_CHILDREN+`?id=${id}&treeModeReturn=${tree}`)

@@ -4,7 +4,7 @@ class Bingding extends Component{
   constructor(props){
     super(props);
     this.state={
-      targetKeys:[]
+      targetKeys:this.props.targetKeys
     };
   }
   handleChange=(targetKeys)=>{

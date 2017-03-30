@@ -5,73 +5,68 @@ export default {
   state: {
     data:[],
     nodes:{},
-    list:[],
-    company:{
-      data:[]
-    }
+    list:[]
   },
   reducers: {
-    save(state,{payload:{nodes,company,eid,list,title}}){
+    save(state,{payload:{nodes,company,list}}){
       if(nodes){
-        return {...state,eid,nodes,...{company,list,title}};
+        return {...state,nodes,...{company,list}};
       }
-      return {...state,eid,...{company,list,title}};
+      return {...state,...{company,list}};
     }
   },
   effects: {
-    *fetchOnly({payload:{eid,title}},{call,put}){
-      let res= yield call(Service.fetch,{eid});
+    *fetchOnly({payload:{}},{call,put}){
+      let res= yield call(Service.fetch,{});
       let nodes=res.data||[];
-      yield put({ type: 'save', payload: {nodes,title,eid}});
+      yield put({ type: 'save', payload: {nodes}});
     },
-    *fetch({payload:{eid,title,name}},{call,put,select}){
-      let res= yield call(Service.fetch,{eid});
+    *fetch({payload:{name}},{call,put,select}){
+      let res= yield call(Service.fetch,{name});
       let nodes=res.data||[];
-      let list_res=yield call(Service.fetch,{eid,...{tree:false}});
+      let list_res=yield call(Service.fetch,{name,...{tree:false}});
       let list=list_res.data||[];
-      yield put({ type: 'save', payload: {nodes,list,title,eid}});
+      yield put({ type: 'save', payload: {nodes,list}});
     },
     *fetchAll({payload:{id,tree=false}},{call,put,select}){
       let res= yield call(Service.fetchChildren,{id,tree});
       let list=res.data||[];
-      const company=yield select(state=>state.organization.company);
-      const nodes=yield select(state=>state.organization.nodes);
-      const eid=yield select(state=>state.organization.eid);
-      const title=yield select(state=>state.organization.title);
-      yield put({ type: 'save', payload: {nodes,company,list,eid,title}});
+      yield put({ type: 'save', payload: {list}});
     },
-    *remove({payload:{id,eid,parentId}},{call,put}){
+    *fetchForEdit({payload:{organizationId}},{call,put}){
+      yield put({ type: 'fetchOnly', payload: {}});
+      yield put({ type: 'utils/getOrganParents', payload: { organizationId}});
+    },
+    *remove({payload:{id,parentId}},{call,put}){
       let data= yield call(Service.remove,id);
-      yield put({type:'reload',payload:{eid}});
-      yield put({type:'fetchAll',payload:{id:parentId}})
+      yield put({type:'reload',payload:{id:parentId}})
     },
     *patch({payload:values},{call,put}){
       let data=yield call(Service.patch,values);
-        yield put({type:'reload',payload:{eid:values.eid}});
-      yield put({type:'fetchAll',payload:{id:values.id}})
+      yield put({type:'reload',payload:{id:values.id}})
     },
     *create({payload:{values}},{call,put}){
       let data=yield call(Service.create,values);
-      yield put({type:'fetchAll',payload:{id:values.parentId}})
+      yield put({type:'reload',payload:{id:values.parentId}})
     },
     *detail({payload:{id}},{call,put}){
       let data= yield call(Service.detail,{id});
       yield put({ type: 'save', payload: {data,id} });
     },
-    *reload({payload:{eid}},{put,select}){
+    *reload({payload:{}},{put,select}){
       const page=yield select(state=>state.organization.page);
       const size=yield select(state=>state.organization.size);
-      yield put({type:'fetch',payload:{page,size,eid}});
+      yield put({type:'fetch',payload:{page,size}});
     }
   },
   subscriptions: {
     setup({dispatch,history}){
       return history.listen(({pathname,query})=>{
         if(pathname==='/organization'){
-          if(query.eid){
             dispatch({type:'fetch',payload:query});
-          }
-          dispatch({type:'company/fetch',payload:query})
+        }
+        if(pathname==='/organization/edit'){
+          dispatch({type:'fetchForEdit',payload:query});
         }
       })
     }

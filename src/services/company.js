@@ -12,6 +12,12 @@ export function patch(values) {
      body:JSON.stringify(values)
   })
 }
+export function patchCompanyInfo(values) {
+  return request(constant.REGISTER_COMPANY_POST,{
+    method:"POST",
+    body:JSON.stringify(values)
+  })
+}
 export function create(values) {
   return request(constant.COMPANY_CREATE,{
     method:'POST',

@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'dva';
 import {Link} from 'dva/router'
-import { Table,Popconfirm,Row,Col} from 'antd';
+import { Table,Popconfirm,Row,Col,Button} from 'antd';
 import { routerRedux } from 'dva/router';
-import SearchComponent from '../components/Building/Search';
+import SearchComponent from '../components/Search/Search';
 import BuildingModel from '../components/Building/BuildingModel';
 
 import styles from './Company.less';
 
 
-function App({dispatch,data,loading,page,size,id,location}) {
+function App({dispatch,data,loading,page,size,id,location},nodes) {
   function pageChangeHandler(page) {
     dispatch(routerRedux.push({
       pathname: '/building',
@@ -17,10 +17,10 @@ function App({dispatch,data,loading,page,size,id,location}) {
     }));
   }
   function search(values) {
-    dispatch(routerRedux.push({
-      pathname: '/building',
-      query: {...values,id} ,
-    }));
+    dispatch({
+      type: 'building/fetch',
+      payload: {...values,id} ,
+    });
   }
   function deleteHandler(id) {
     dispatch({
@@ -31,7 +31,13 @@ function App({dispatch,data,loading,page,size,id,location}) {
   function editHandler(bid,values) {
     dispatch({
       type: 'building/patch',
-      payload:Object.assign({},{communityId:id},{ bid, ...values })
+      payload:Object.assign({},{communityId:id},{ id:bid, ...values })
+    });
+  }
+  function createHandler(values) {
+    dispatch({
+      type: 'building/create',
+      payload:Object.assign({},{communityId:id},values)
     });
   }
   const columns = [
@@ -48,7 +54,7 @@ function App({dispatch,data,loading,page,size,id,location}) {
     {
       title: '操作',
       key: 'operation',
-      width:'16%',
+      width:'20%',
       render:(record)=>{
         const linkProps={
           pathname:'/room',
@@ -80,58 +86,45 @@ function App({dispatch,data,loading,page,size,id,location}) {
     },
     onChange:pageChangeHandler
   };
-  function onPageChange(pageNo) {
-    dispatch({
-      type:'building/fetchCommunity',
-      payload:{pageNo,page,size,id}
-    })
-  }
-  function onSearch(name) {
-    dispatch({
-      type:'building/fetchCommunity',
-      payload:{name,page,size,id}
-    })
-  }
-  const treeProps={
-    defaultExpandAll:true,
-    showLine:true,
-    defaultSelectedKeys:[id],
-    onSelect:(id,node)=>{
-      dispatch(routerRedux.push({
-        pathname: '/building',
-        query: { page,size,id},
-      }));
-    }
-  }
+
   return (
     <div>
-      <Row>
-        <Col span="0">
-{/*          <TreeComponent treeProps={treeProps} treeData={community} onPageChange={onPageChange} onSearch={onSearch}/>*/}
+      <div style={{height:30}}>
+        <SearchComponent onSearch={search} placeholder="编号/楼宇名称"/>
+      </div>
+      <Row className={styles.operation}>
+        <Col span={12}>
+            楼宇管理
         </Col>
-        <Col span="24">
-          <SearchComponent onSearch={search}/>
-          <Table
-            columns={columns}
-            dataSource={data.data}
-            rowKey={record => record.id}
-            pagination={pagination}
-            loading={loading}
-          />
+        <Col span={12}>
+          <div className={styles.btnGroup}>
+            <BuildingModel record={{nodeFlag:0}} onOk={createHandler} title="新增楼宇"  nodes={nodes} >
+              <Button className={styles.add}>添加</Button>
+            </BuildingModel>
+          </div>
         </Col>
       </Row>
+      <Table
+        columns={columns}
+        dataSource={data.data}
+        rowKey={record => record.id}
+        pagination={pagination}
+        loading={loading}
+      />
     </div>
   );
 }
 function mapStateToProps(state) {
   const { data,page,size,status,id} = state.building;
+  const { nodes} = state.organization;
   return {
     loading: state.loading.models.building,
     data,
     page,
     size,
     status,
-    id
+    id,
+    nodes
   };
 }
 export default connect(mapStateToProps)(App);

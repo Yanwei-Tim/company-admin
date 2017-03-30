@@ -1,4 +1,6 @@
-import md5 from 'md5'
+import md5 from 'md5';
+import api from './constant';
+import {message,notification} from 'antd'
 // 连字符转驼峰
 String.prototype.hyphenToHump = function () {
   return this.replace(/-(\w)/g, function () {
@@ -58,6 +60,14 @@ export function getToken() {
   }
   return profile.token
 }
+export function getEidToken() {
+  const info=sessionStorage.getItem('PROFILE');
+  let profile={};
+  if(info!=''&&info!='undefined'&&info!=null){
+    profile=JSON.parse(decodeURIComponent(info))
+  }
+  return profile.eid
+}
 export function organFlag(flag) {
   flag=parseInt(flag);
   switch (flag){
@@ -83,5 +93,77 @@ export function organFlag(flag) {
       return "岗位";
       break;
 
+  }
+}
+export function prompt(url,data={}) {
+  const notification_strainer=[api.REGISTER_POST,api.LOGIN_ACCOUNT,api.VALID_CODE,api.VALIDATE_ACCOUNT,api.VALID_TOKEN,api.FIND_PWD];
+  //const exclude=[api.VALIDATE_ACCOUNT];
+  let pathname=url;
+  if(url.indexOf("?")!==-1){
+    pathname=url.substr(0,url.indexOf("?"));
+  }
+  if(notification_strainer.indexOf(pathname)!==-1){
+    switch (data.status){
+      case 1:
+        if(url.indexOf(api.LOGIN_ACCOUNT)!==-1||url.indexOf(api.VALID_TOKEN)!==-1){
+          return null
+        }
+        notification.success({
+          placement:"topLeft",
+          message: data.message,
+          description: '系统信息提示',
+        });
+        break;
+      case 0:
+        if(url.indexOf('register')!==-1){
+          notification.warning({
+            placement:"topLeft",
+            message: data.message,
+            description: '操作失败，请查看上述提示信息'
+          });
+        }
+        else if(url.indexOf("/api/account/checkToken")!==-1){
+          notification.warning({
+            message: '登录超时',
+            description: '您未登录或登录已超时，请重新登录',
+          });
+        }
+        else {
+          notification.warning({
+            message: data.message,
+            description: '操作失败，请查看上述提示信息'
+          });
+        }
+        break;
+      case -1:
+        notification.warning({
+          message: '登录超时',
+          description: '您未登录或登录已超时，请重新登录',
+        });
+        break;
+      default:
+        notification.warning({
+          message: data.message
+        });
+    }
+  }else {
+    if(!data.data){
+      switch (data.status){
+        case 1:
+          message.success('操作成功');
+          break;
+        case 0:
+          message.warning('操作失败');
+          break;
+        case -1:
+          notification.warning({
+            message: '未登录',
+            description: '您未登录或登录已超时，请重新登录',
+          });
+          break;
+        default:
+          message.warning(data.message);
+      }
+    }
   }
 }

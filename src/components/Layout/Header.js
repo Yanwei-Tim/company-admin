@@ -1,37 +1,25 @@
-import React,{Component} from 'react';
-import { Menu,Icon,Button } from 'antd';
-import { Link } from 'dva/router';
-import styles from './main.less'
-const SubMenu = Menu.SubMenu;
-
-class Header extends Component{
-  constructor(props){
-    super(props)
-  }
-  componentWillReceiveProps(nextProps){
-    const {isLogout,logoutSuccess}=nextProps;
-    if(isLogout==-1){
-      logoutSuccess();
-    }
-  }
-  render(){
-    const {user,logout}=this.props;
-    return (
-      <div className={styles.header}>
-        <Menu className="header-menu" mode="horizontal" >
-          <SubMenu style={{ float: 'right' }}
-                   title={<span><Icon type="user" />{user}</span>}
-          >
-            <Menu.Item key="logout">
-              <a href="javascript:void(0)" onClick={logout}>注销</a>
-            </Menu.Item>
-          </SubMenu>
-        </Menu>
+import React from 'react';
+import {Row,Col} from 'antd'
+import {Link} from 'dva/router';
+import styles from './Header.less';
+import {getSession} from '../../utils/index'
+function Header() {
+  const user=getSession("PROFILE");
+  return (
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <Row type="flex" align="middle" className={styles.row}>
+          <Col span={20}>
+            <Link to="home" className={styles.logo}></Link>
+            <Link to="home" className={styles.company}></Link>
+          </Col>
+          <Col span={4} className={styles.operation}>
+            <Link to="login" className={styles['logout-link']}>退出</Link>
+             <span className={styles.avatar} style={{"backgroundImage":`url(${user.headImgUrl})`}}></span>
+          </Col>
+        </Row>
       </div>
-    );
-  }
-
-
+    </div>
+  );
 }
-
 export default Header;

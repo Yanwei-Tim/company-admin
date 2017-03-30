@@ -1,0 +1,40 @@
+.main{
+  width: 100vw;
+  height: 100vh;
+  background: #ececec;
+}
+
+.container{
+  width: 1200px;
+  min-height: 620px;
+  background: #ffffff;
+  margin: 40px auto ;
+  color: #222222;
+}
+.content{
+  padding: 80px 100px;
+  border-top: 1px solid #dbdbdb;
+}
+.title{
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 45px;
+  border-bottom: 1px solid #ececec;
+}
+.description-title{
+  line-height: 35px;
+  margin: 20px 0;
+  color: #449ae7;
+  font-size: 16px;
+}
+.button{
+  display: inline-block;
+  height: 45px;
+  width: 150px;
+  margin-top: 35px;
+  font-size: 16px;
+  margin-right: 15px;
+}
+.refuse{
+  color:#AB3027;
+}

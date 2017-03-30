@@ -1,8 +1,7 @@
 import request from '../utils/request';
 import constant from '../utils/constant'
-export function fetch({page=1,name='',disable='',code=''}) {
-  let url=`?pageNo=${page}&pageNum=10000&name=${name}&disable=${disable}&code=${code}&flag=`;
-  return request(constant.AUTHORIZE_LIST+url);
+export function fetch() {;
+  return request(constant.AUTHORIZE_LIST);
 }
 export function remove(id) {
   return request(constant.AUTHORIZE_DELETE+`?id=${id}`)

@@ -1,9 +1,28 @@
 import React from 'react';
 import { connect } from 'dva';
+import {Row,Col} from 'antd'
 function IndexPage({ location }) {
   return (
        <div>
-            <h1>欢迎来到智慧云-智慧社区!</h1>
+         <Row gutter={24}>
+           <Col span={6}>
+
+           </Col>
+           <Col span={6}>
+
+           </Col>
+           <Col span={6}>
+
+           </Col>
+           <Col span={6}></Col>
+         </Row>
+
+
+
+
+
+
+
        </div>
   );
 }

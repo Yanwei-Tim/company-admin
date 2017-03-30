@@ -1,5 +1,6 @@
 import React ,{Component}from 'react';
-import { Form, Row, Col, Input, Button, Icon } from 'antd';
+import { Form, Input, Button } from 'antd';
+import styles from './Search.css';
 const FormItem = Form.Item;
 
 class Search extends Component{
@@ -16,40 +17,33 @@ class Search extends Component{
   }
   render(){
     const { getFieldDecorator } = this.props.form;
-
     const formItemLayout = {
       labelCol: { span:0 },
-      wrapperCol: { span: 20},
+      wrapperCol: { span: 24},
     };
     return (
-      <div>
-        <Form horizontal onSubmit={this.submitHandler.bind(this)}>
-          <Row>
-            <Col span="6">
+      <div className={styles.container}>
+        <Form layout="inline" onSubmit={this.submitHandler.bind(this)}>
               <FormItem {...formItemLayout} label=''>
                 {getFieldDecorator(`number`)(
                   <Input placeholder="房间编号"/>
                 )}
               </FormItem>
-            </Col>
-            <Col span="6">
               <FormItem {...formItemLayout} label=''>
                 {getFieldDecorator(`houseNumber`)(
                   <Input placeholder="房间号"/>
                 )}
               </FormItem>
-            </Col>
-            <Col span="6">
               <FormItem {...formItemLayout} label=''>
                 {getFieldDecorator(`ownerName`)(
                   <Input placeholder="业主"/>
                 )}
               </FormItem>
-            </Col>
-            <Col span="6">
-              <Button type="primary" htmlType="submit" >搜索</Button>
-            </Col>
-          </Row>
+              <FormItem {...formItemLayout} label=''>
+                <Button type="primary" htmlType="submit" >搜索</Button>
+              </FormItem>
+
+
         </Form>
       </div>
     );

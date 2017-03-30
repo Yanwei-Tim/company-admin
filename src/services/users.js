@@ -1,11 +1,13 @@
 import request from '../utils/request'
-import constant from '../utils/constant'
-
+import constant from '../utils/constant';
+export function fetch({name='',page='',size=''}) {
+  return request(constant.USERS_LIST_COMPANY+`?pageNo=${page}&pageNum=${size}&name=${name}`)
+}
 export function fetch_by_company({eid}) {
   return request(constant.USERS_LIST_COMPANY+`?pageNo=1&pageNum=10000&eid=${eid}`)
 }
-export function fetch_by_organ({page=1,orgId}) {
-    return request(constant.USERS_LIST_ORGAN+`?pageNo=1&pageNum=10000&organizationId=${orgId}`)
+export function fetch_by_organ({page=1,orgId,size=10}) {
+    return request(constant.USERS_LIST_ORGAN+`?pageNo=1&pageNum=${size}&organizationId=${orgId}`)
 }
 export function remove(id) {
   return request(constant.USERS_DELETE+`?id=${id}`)
