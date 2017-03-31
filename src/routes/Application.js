@@ -35,15 +35,10 @@ function App({dispatch,location,data={},loading,data_key_1={}}) {
                         <Link to={{
                           pathname:'application/info',
                           state:{record},
-                          query:{key:0}
+                          query:{key:0,id:record.id}
                         }}>
                           <Row>
-                            <Col span={6} className={classnames({
-                              [appIcon]:true,
-                              [appUsed]:record.status===1,
-                              [appUnused]:record.status!==1
-                            })
-                            } >
+                            <Col span={6} className={styles.appIcon} style={{backgroundImage:`url(${record.iconUrl})`}}>
                             </Col>
                             <Col span={18} className={appDescribe}>
                               <p className={styles.title}>{record.name}</p>
@@ -74,13 +69,7 @@ function App({dispatch,location,data={},loading,data_key_1={}}) {
                         query:{key:1,id:record.id}
                       }}>
                         <Row>
-                          <Col span={6} className={classnames({
-                            [appIcon]:true,
-                            [appUsed]:record.status===1,
-                            [appUnused]:record.status!==1
-                          })
-                          }>
-                          </Col>
+                          <Col span={6} className={styles.appIcon} style={{backgroundImage:`url(${record.iconUrl})`}}/>
                           <Col span={18} className={appDescribe}>
                             <p className={styles.title}>{record.name}</p>
                             <p className={styles.subTitle}>

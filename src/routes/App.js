@@ -9,7 +9,7 @@ import Footer from '../components/OutSide/Footer'
 function App({ children,location,routes,dispatch,token,list={}}) {
 
   function setHeight(height) {
-     document.getElementById("layout").style.height=height+50+"px"
+     document.getElementById("layout").style.minHeight=height+50+"px"
   }
   const siderProps={
     location,

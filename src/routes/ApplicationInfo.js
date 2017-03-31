@@ -6,7 +6,7 @@ import styles from './Company.less';
 const confirm = Modal.confirm;
 const TabPane = Tabs.TabPane;
 function App({dispatch,loading,location,data={}}) {
-  const {name,id,status,readme}=location.state.record;
+  const {name,id,status,readme,iconUrl}=location.state.record;
   const {key}=location.query;
   function changeHandle(key) {
     dispatch(routerRedux.push({
@@ -84,7 +84,7 @@ function App({dispatch,loading,location,data={}}) {
             <div className={styles.highlight_box}>
               <Row gutter={12}>
                 <Col span={2}>
-                  <img src={require('../assets/app-icon.png')} alt=""/>
+                  <img src={iconUrl} alt="" style={{width:48,height:48}}/>
                 </Col>
                 <Col span={16}>
                     <h4>{name}</h4>

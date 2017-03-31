@@ -8,7 +8,7 @@ import styles from './Company.less';
 const confirm = Modal.confirm;
 const TabPane = Tabs.TabPane;
 function App({dispatch,loading,location,community_list={},nodes,organizationId,list={}}) {
-  const {name,id,readme,status}=location.state.record;
+  const {name,id,readme,status,iconUrl}=location.state.record;
   const {key}=location.query;
   const {status_done,status_wait,status_hold}=styles;
   function changeHandle(key) {
@@ -109,12 +109,14 @@ function App({dispatch,loading,location,community_list={},nodes,organizationId,l
   return (
     <div>
       <Tabs defaultActiveKey={key} onTabClick={changeHandle} >
-        <TabPane tab="功能模块" key="0"></TabPane>
+        <TabPane tab="功能模块" key="0">
+          &nbsp;
+        </TabPane>
         <TabPane tab="智能应用" key="1">
           <div className={styles.highlight_box}>
             <Row gutter={12}>
               <Col span={2}>
-                <img src={require('../assets/app-icon.png')} alt=""/>
+                <img src={iconUrl} alt="" style={{width:48,height:48}}/>
               </Col>
               <Col span={16}>
                 <h4>{name}</h4>

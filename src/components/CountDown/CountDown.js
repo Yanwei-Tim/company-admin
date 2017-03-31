@@ -2,19 +2,12 @@ import React from 'react';
 export default class CountDown extends React.Component {
     constructor(props) {
         super(props);
-        const {times=60}=this.props;
+
         this.state = {
             countingDone:true,
-            count:times,
+            count:60,
             text:'获取验证码'
         }
-    }
-    componentDidMount(){
-        const {auto=false}=this.props;
-        if(auto){
-            this._start();
-        }
-
     }
     _start() {
         this._stop();
@@ -44,7 +37,7 @@ export default class CountDown extends React.Component {
         clearInterval(this.interval)
     }
     _sendVerifyCode(){
-        const {setCode}=this.props;
+       const {setCode}=this.props;
        const valid=setCode();
        if(valid){
            this._start();
@@ -52,8 +45,9 @@ export default class CountDown extends React.Component {
                countingDone:false
            })
        }
-
-
+    }
+    componentWillUnmount(){
+        clearInterval(this.interval);
     }
     render() {
         const styleObj = {
@@ -69,7 +63,7 @@ export default class CountDown extends React.Component {
             cursor:"pointer",
             borderRadius:'4px'
         };
-        const {countType,auto,step,startText,endText,style}=this.props;
+        const {auto,style}=this.props;
         return (
             <div>
 
