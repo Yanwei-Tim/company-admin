@@ -10,12 +10,12 @@ function Header() {
       <div className={styles.content}>
         <Row type="flex" align="middle" className={styles.row}>
           <Col span={20}>
-            <Link to="home" className={styles.logo}></Link>
-            <Link to="home" className={styles.company}></Link>
+            <Link to="home" className={styles.logo}/>
+            <Link to="home" className={styles.company}/>
           </Col>
           <Col span={4} className={styles.operation}>
             <Link to="login" className={styles['logout-link']}>退出</Link>
-             <span className={styles.avatar} style={{"backgroundImage":`url(${user.headImgUrl})`}}></span>
+             <span className={styles.avatar} style={{"backgroundImage":`url(${user.headImgUrl})`}}/>
           </Col>
         </Row>
       </div>

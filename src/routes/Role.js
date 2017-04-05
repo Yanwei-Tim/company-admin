@@ -54,6 +54,14 @@ function Authorize({dispatch,data,loading,size,page}) {
           query:{roleId:record.id},
           state:{record}
         };
+        if(record.flag===9){
+          return (<div className={styles['antd-operation-link']}>
+            <span>禁用</span>
+            <span>编辑</span>
+            <Link to={linkProps} className={styles['text-green']}>绑定权限</Link>
+          </div>)
+        }
+
         return (<div className={styles['antd-operation-link']}>
           {
             record.status==0? (''):

@@ -8,7 +8,8 @@ import './index.html';
 import './index.less';
 import { createHashHistory } from 'history';
 import { useRouterHistory } from 'dva/router';
-import  createLoading from 'dva-loading'
+import  createLoading from 'dva-loading';
+
 import createLogger from 'dva-logger'
 // 1. Initialize
 const app = dva({

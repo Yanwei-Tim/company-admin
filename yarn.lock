@@ -1334,6 +1334,10 @@ console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/console-control-strings/download/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
 
+console-polyfill@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/console-polyfill/-/console-polyfill-0.2.3.tgz#d455d3d574dbcdccf80e1631df21a486fe05f989"
+
 constants-browserify@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/constants-browserify/download/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
@@ -1798,6 +1802,10 @@ es5-ext@^0.10.7, es5-ext@^0.10.8, es5-ext@~0.10.11, es5-ext@~0.10.2, es5-ext@~0.
     es6-iterator "2"
     es6-symbol "~3.1"
 
+es5-shim@^4.5.9:
+  version "4.5.9"
+  resolved "https://registry.yarnpkg.com/es5-shim/-/es5-shim-4.5.9.tgz#2a1e2b9e583ff5fed0c20a3ee2cbf3f75230a5c0"
+
 es6-iterator@2:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/es6-iterator/download/es6-iterator-2.0.0.tgz#bd968567d61635e33c0b80727613c9cb4b096bac"
@@ -1816,6 +1824,10 @@ es6-map@^0.1.3:
     es6-set "~0.1.3"
     es6-symbol "~3.1.0"
     event-emitter "~0.3.4"
+
+es6-promise@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.1.0.tgz#dda03ca8f9f89bc597e689842929de7ba8cebdf0"
 
 es6-set@~0.1.3:
   version "0.1.4"
@@ -2978,6 +2990,10 @@ jquery@>=1.7.2:
 js-base64@^2.1.9:
   version "2.1.9"
   resolved "http://registry.npm.taobao.org/js-base64/download/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
+
+js-cookie@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.1.3.tgz#48071625217ac9ecfab8c343a13d42ec09ff0526"
 
 js-tokens@^3.0.0:
   version "3.0.1"
@@ -4264,6 +4280,13 @@ rc-progress@~2.0.1:
   version "2.0.6"
   resolved "http://registry.npm.taobao.org/rc-progress/download/rc-progress-2.0.6.tgz#799af503904330d35184ab00d61ebfcbc005c486"
 
+rc-queue-anim@^0.13.3:
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/rc-queue-anim/-/rc-queue-anim-0.13.3.tgz#12bfa0d36764154bd52671dcc8d213ebedd5f5fb"
+  dependencies:
+    babel-runtime "6.x"
+    velocity-animate "~1.3.1"
+
 rc-radio@~2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/rc-radio/download/rc-radio-2.0.0.tgz#357b2da4d46564784b85d4bb5f0edf6c207155b3"
@@ -4413,6 +4436,13 @@ rc@~1.1.6:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-avatar-editor@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/react-avatar-editor/-/react-avatar-editor-8.0.1.tgz#f2a5daddf1f7ade144b940d22c3b6103e83fb1b1"
+  dependencies:
+    react "^15.3.2"
+    react-dom "^15.3.2"
+
 react-baidu-map@^1.3.5:
   version "1.3.5"
   resolved "http://registry.npm.taobao.org/react-baidu-map/download/react-baidu-map-1.3.5.tgz#70843f4d8483fed4ae3eadae3f4cb64cf9182d10"
@@ -4435,7 +4465,7 @@ react-dom@^0.14.0:
   version "0.14.8"
   resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-0.14.8.tgz#0f1c547514263f771bd31814a739e5306575069e"
 
-react-dom@^15.4.0:
+react-dom@^15.3.2, react-dom@^15.4.0:
   version "15.4.2"
   resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
   dependencies:
@@ -4488,6 +4518,10 @@ react-router@^2.8.1:
     loose-envify "^1.2.0"
     warning "^3.0.0"
 
+react-sk-countdown@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-sk-countdown/-/react-sk-countdown-1.0.2.tgz#31939c035ed180088cd23f1b007985cd82a4a941"
+
 react-slick@~0.14.2:
   version "0.14.6"
   resolved "http://registry.npm.taobao.org/react-slick/download/react-slick-0.14.6.tgz#dd0439b2434bafd43ed50f93aa483d104ff6b1e2"
@@ -4505,7 +4539,7 @@ react@0.14.3, react@^0.14.0:
     envify "^3.0.0"
     fbjs "^0.3.1"
 
-react@^15.4.0:
+react@^15.3.2, react@^15.4.0:
   version "15.4.2"
   resolved "http://registry.npm.taobao.org/react/download/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
   dependencies:
@@ -5384,6 +5418,10 @@ validate-npm-package-license@^3.0.1:
 vary@~1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/vary/download/vary-1.1.0.tgz#e1e5affbbd16ae768dd2674394b9ad3022653140"
+
+velocity-animate@~1.3.1:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/velocity-animate/-/velocity-animate-1.3.2.tgz#eb90d4ddb5f818c35937380b4b7df59934a26c3b"
 
 vendors@^1.0.0:
   version "1.0.1"

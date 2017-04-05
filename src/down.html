@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>提示</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <link rel="icon" href="favicon.ico" type="image/ico" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/ico"/>
+    <style>
+        *{
+            padding: 0;
+            margin: 0 auto;
+        }
+        html,body{
+            width: 100vw;
+            height: 100vh;
+            font-size: 14px;
+        }
+        .container{
+           padding: 80px 20px;
+            line-height: 30px;
+        }
+        .logo{
+            text-align: center;
+            padding-top: 1.15rem;
+        }
+        .logo img{
+            width: 80px;
+        }
+        .logo p{
+            font-size: 1.15rem;
+            color: #333333;
+            word-break: break-all;
+        }
+        .link-btn{
+            display: block;
+            background: #ffffff;
+            border:1px solid #00a854;
+            color: #00a854;
+            height: 45px;
+            line-height: 45px;
+            border-radius: 4px;
+            margin-top: 25px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <section class="logo">
+        <img src="data:image/png;base64,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" alt="">
+        <h2>您将要访问</h2>
+        <p>http://download.comhttp://download.comhttp:</p>
+        <div>
+            <a href="" class="link-btn">
+                继续访问
+            </a>
+        </div>
+    </section>
+</div>
+
+
+
+</body>
+</html>
